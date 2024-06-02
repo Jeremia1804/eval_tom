@@ -9,7 +9,7 @@ def connexionAdmin(login,pwd):
     admin = AdminModel.query.filter_by(login=login).one_or_none()
     if not admin or not admin.check_pwd(pwd):
         return False
-    setSession('ADMIN', 1,'admin')
+    setSession('ADMIN', 0,'admin')
     return True
 
 def connexionEquipe(login,pwd):
