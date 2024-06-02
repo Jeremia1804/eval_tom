@@ -1,17 +1,17 @@
-{% extends 'main/admin.html' %}
+{% extends 'main/client.html' %}
 
 {% block body %}
 <div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
-          <h3>Tasks</h3>
+          <h3>Etapes</h3>
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
             <li class="breadcrumb-item">Apps</li>
-            <li class="breadcrumb-item active">Tasks</li>
+            <li class="breadcrumb-item active">Etapes</li>
           </ol>
         </div>
       </div>
@@ -26,23 +26,25 @@
                 <div class="card-block row">
                     <div class="col-sm-12 col-lg-12 col-xl-12">
                         <div class="table-responsive">
-                            <table class="table header-border table-responsive-sm "  nb="35">
+                            <table class="table header-border table-responsive-sm mypagination"  nb="35">
                               <thead>
                                 <tr>        
-                                    <th > libelle </th>
-                                    <th >augmentation</th>
+                                    <th > nom </th>
+                                    <th > rang </th>
+                                    <th > nombre_coureur </th>
+                                    <th > longueur</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                {% for t in finition: %}
                                 <tr>
-                                    <td >{{t.libelle}}</td>
-                                    <td >{{t.augmentation}}</td>
+                                    <td >etape 1</td>
+                                    <td >1</td>
+                                    <td >3</td>
+                                    <td >20.5</td>
                                     <td>
-                                      <a class="dropdown-item" href="/update-finition/{{t.idfinition}}">Update</a>
+                                      <button class="btn-primary"><a class="dropdown-item" href="/coureur-etape">Attribuer coureur</a></button>
                                     </td>
                                 </tr>
-                                {% endfor %}
                               </tbody>
                             
                             </table>
