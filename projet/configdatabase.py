@@ -1,11 +1,11 @@
 from projet.db import db
 from projet import app
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 
 postgresql = {'host': 'localhost',
          'user': 'postgres',
-         'passwd': 'postgres',
-         'db': 'eval2'}
+         'passwd': 'root',
+         'db': 'eval'}
 
 postgresqlConfig = "postgresql+psycopg2://{}:{}@{}/{}".format(postgresql['user'], postgresql['passwd'], postgresql['host'], postgresql['db'])
 
