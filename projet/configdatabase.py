@@ -12,7 +12,6 @@ postgresqlConfig = "postgresql+psycopg2://{}:{}@{}/{}".format(postgresql['user']
 app.config['SQLALCHEMY_DATABASE_URI'] = postgresqlConfig
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-migrate = Migrate(app,db)
 
 db.init_app(app)
 
