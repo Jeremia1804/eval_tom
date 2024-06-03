@@ -33,25 +33,25 @@
             <table class="table">
               <thead class="table-dark">
                 <tr>
+                  <th scope="col">Rang</th>
                   <th scope="col">Coureur</th>
                   <th scope="col">Numero</th>
-                  <th scope="col">Genre</th>
-                  <th scope="col">Categorie</th>
                   <th scope="col">Equipe</th>
                   <th scope="col">Chrono</th>
                   <th scope="col">Points</th>
                 </tr>
               </thead>
               <tbody>
+                {%for l in cl:%}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
+                  <th scope="row">{{l.rang}}</th>
+                  <td>{{l.nom}}</td>
+                  <td>{{l.numero}}</td>
+                  <td>{{l.nomequipe}}</td>
+                  <td>{{l.duree_formatted}}</td>
+                  <td>{{l.point}}</td>
                 </tr>
+                {%endfor%}
               </tbody>
             </table>
           </div>

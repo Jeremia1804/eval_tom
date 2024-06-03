@@ -16,6 +16,7 @@
         </div>
         <div class="col-sm-4" >
           <select class="form-select digits annee" id="etape" name="etape"> 
+            <option value="0">Toute etape</option>
             {% for re in etape:%}
             <option value={{re.idetape}}>{{re.nom}}</option>
             {%endfor%}
@@ -23,7 +24,10 @@
         </div>
         <div class="col-sm-4" >
             <select class="form-select digits annee" id="categorie" name="categorie"> 
-              <option value="">Homme</option>
+              <option value="0">Toute categorie</option>
+              {% for re in cate:%}
+              <option value={{re.idcategorie}}>{{re.nom}}</option>
+              {%endfor%}
             </select>
         </div>
       </div>
@@ -38,18 +42,12 @@
                 </tr>
               </thead>
               <tbody>
+                {% for u in cl:%}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
+                  <th scope="row">{{u.nomequipe}}</th>
+                  <td>{{u.point}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                </tr>
+                {%endfor%}
               </tbody>
             </table>
           </div>

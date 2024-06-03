@@ -1,5 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from projet import app
+from projet.models.categorie import CategorieModel
+from projet.models.classement import Classement_coureur, Classement_equipe
 from projet.models.coureur import CoureurModel
 from projet.models.etape import EtapeModel
 
@@ -26,11 +28,19 @@ def printchrono():
 
 @app.route('/classement-equipe-ad' , methods = ['GET'])
 def classment_eq():
-    return render_template("admin/classement-equipe.html")
+    all_etapes = EtapeModel.find_all()
+    all_cate = CategorieModel.find_all()
+    col  = getattr(Classement_equipe,'point')
+    cl = Classement_equipe.query.filter_by(idetape=0,idcategorie=0).order_by(col.desc()).all()
+    return render_template("client/classement-equipe.html",etape=all_etapes,cate=all_cate,cl=cl)
 
 @app.route('/classement-etape-ad' , methods = ['GET'])
 def classment_etape():
-    return render_template("admin/classement-etape.html")
+    all_etapes = EtapeModel.find_all()
+    all_cate = CategorieModel.find_all()
+    col  = getattr(Classement_coureur,'rang')
+    cl = Classement_coureur.query.filter_by(idetape=0,idcategorie=0).order_by(col.asc()).all()
+    return render_template("client/classement-etape.html",etape=all_etapes,cate=all_cate,cl=cl)
 
 @app.route('/admin-home' , methods = ['GET','POST'])
 def admin_home():
