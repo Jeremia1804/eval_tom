@@ -5,7 +5,7 @@
     <div class="page-title">
       <div class="row">
         <div class="col-6">
-          <h3>Etapes</h3>
+          <h3>Liste des etapes</h3>
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
@@ -16,46 +16,75 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 <div class="container-fluid">
-    <div class=row>
-        
-        <div class="col-sm-9">
-            <div class="card">
-                <div class="card-block row">
-                    <div class="col-sm-12 col-lg-12 col-xl-12">
-                        <div class="table-responsive">
-                            <table class="table header-border table-responsive-sm mypagination"  nb="35">
-                              <thead>
-                                <tr>        
-                                    <th > nom </th>
-                                    <th > rang </th>
-                                    <th > nombre_coureur </th>
-                                    <th > longueur</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                    <td >etape 1</td>
-                                    <td >1</td>
-                                    <td >3</td>
-                                    <td >20.5</td>
-                                    <td>
-                                      <button class="btn-primary"><a class="dropdown-item" href="/coureur-etape">Attribuer coureur</a></button>
-                                    </td>
-                                </tr>
-                              </tbody>
-                            
-                            </table>
-                        </div>
-                    </div>
-                </div>
+  <div class=row>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-block row">
+            <div style="margin-left: 10px; margin-top: 10px;"><em style="font-weight: bold;"> Etape 1 </em> (55 km) - 2 coureurs</div> 
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+              <div class="table-responsive">
+                <table class="table header-border table-responsive-sm mypagination"  nb="35">
+                  <thead>
+                    <tr>        
+                      <th>Nom</th>
+                      <th>Temps chrono</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Coureur 1</td>
+                      <td>00:01:02</td>
+                    </tr>
+                    <tr>
+                      <td>Coureur 1</td>
+                      <td>00:01:02</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
         </div>
+        <a class="btn btn-primary btn-block" href="/coureur-etape">Attribuer coureur</a>
+      </div>
+    </div>
+    <div style="margin-top: 40px;"> </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-block row">
+            <div style="margin-left: 10px; margin-top: 10px;"><em style="font-weight: bold;"> Etape 1 </em> (55 km) - 2 coureurs</div> 
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+              <div class="table-responsive">
+                <table class="table header-border table-responsive-sm mypagination"  nb="35">
+                  <thead>
+                    <tr>        
+                      <th>Nom</th>
+                      <th>Temps chrono</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Coureur 1</td>
+                      <td>00:01:02</td>
+                    </tr>
+                    <tr>
+                      <td>Coureur 1</td>
+                      <td>00:01:02</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="btn btn-primary btn-block" href="/coureur-etape">Attribuer coureur</a>
       </div>
     </div>
   </div>
+</div>
 
 
 {% endblock %}  

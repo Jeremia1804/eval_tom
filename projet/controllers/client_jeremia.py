@@ -7,7 +7,7 @@ from projet.services.service_resultat import add_resultat_etape
 def form_etape_coureur():
     idetape = request.form.get('idetape')
     idcoureurs = request.form.getlist('idcoureur')
-
+    
     add_etape_coureurs(idetape, idcoureurs)
     return "tafiditra", 200
 

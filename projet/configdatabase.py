@@ -4,8 +4,8 @@ from projet import app
 
 postgresql = {'host': 'localhost',
          'user': 'postgres',
-         'passwd': 'root',
-         'db': 'eval'}
+         'passwd': 'postgres',
+         'db': 'eval2'}
 
 postgresqlConfig = "postgresql+psycopg2://{}:{}@{}/{}".format(postgresql['user'], postgresql['passwd'], postgresql['host'], postgresql['db'])
 

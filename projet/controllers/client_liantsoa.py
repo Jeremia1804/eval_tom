@@ -10,7 +10,6 @@ def index():
 def login_equipe():
     return render_template("login-equipe.html")
 
-
 @app.route('/liste-etape', methods = ['GET'])
 def liste_etape():
     return render_template("client/list-etape.html")
@@ -27,3 +26,6 @@ def classment_eq_cl():
 def classment_etape_cl():
     return render_template("client/classement-etape.html")
 
+@app.route('/equipe-home', methods=['POST'])
+def equipe_home():
+    return redirect(url_for('liste_etape'))

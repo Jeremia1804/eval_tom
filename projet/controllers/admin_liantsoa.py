@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import redirect, render_template, request, url_for
 from projet import app
 
 
@@ -14,7 +14,6 @@ def liste_etape2():
 def coureur_temps():
     return render_template("admin/coureur-temps.html")
 
-
 @app.route('/print_chrono',methods=['POST'])
 def printchrono():
     chrono = request.form['chrono']
@@ -28,3 +27,14 @@ def classment_eq():
 def classment_etape():
     return render_template("admin/classement-etape.html")
 
+@app.route('/admin-home' , methods = ['POST'])
+def admin_home():
+    return redirect(url_for('liste_etape2'))
+
+@app.route('/import-first', methods =['GET'])
+def import_first():
+    return render_template("admin/import-first.html")
+
+@app.route('/import-second', methods =['GET'])
+def import_second():
+    return render_template("admin/import-second.html")
