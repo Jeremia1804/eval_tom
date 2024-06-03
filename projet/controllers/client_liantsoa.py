@@ -57,10 +57,7 @@ def filter_by_etape():
     etape_id = request.form.get('etape')
     categori_id = request.form.get('categorie')
     col  = getattr(Classement_coureur,'rang')
-    if etape_id == '0':
-        filtered_classements = Classement_coureur.query.filter_by(idetape=0,idcategorie=0).order_by(col.asc()).all()
-    else:
-        filtered_classements = Classement_coureur.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.asc()).all()
+    filtered_classements = Classement_coureur.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.asc()).all()
     
     return jsonify({'results': [cl.json() for cl in filtered_classements]})
 
@@ -70,9 +67,6 @@ def filter_by_equipe():
     etape_id = request.form.get('etape')
     categori_id = request.form.get('categorie')
     col  = getattr(Classement_equipe,'point')
-    if etape_id == '0':
-        filtered_classements = Classement_equipe.query.filter_by(idetape=0,idcategorie=0).order_by(col.desc()).all()
-    else:
-        filtered_classements = Classement_equipe.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.desc()).all()
+    filtered_classements = Classement_equipe.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.desc()).all()
 
     return jsonify({'results': [cl.json() for cl in filtered_classements]})
