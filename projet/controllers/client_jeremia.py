@@ -4,6 +4,7 @@ from projet.services.service_equipe import add_etape_coureurs
 from projet.services.service_resultat import add_resultat_etape
 from projet.annotation.authentication import auth
 from projet.models.resultat import ResultatModel
+from projet.models.classement import Classement_coureur, Classement_equipe
 
 @app.route('/etape-coureur/<int:id>', methods = ['POST'])
 @auth('USER')
@@ -24,7 +25,7 @@ def form_resultat_etape():
 
 @app.route('/test', methods = ['GET'])
 def test():
-    result = ResultatModel.find_by_equipe_etape(2,1)
+    result = Classement_coureur.query.all()
     for r in result:
         print(r.idcoureur)
     return "cool", 200
