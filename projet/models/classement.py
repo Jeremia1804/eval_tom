@@ -10,6 +10,13 @@ class Classement_equipe(db.Model):
     nomequipe = db.Column(db.String)
     point = db.Column(db.Float)
 
+    def json(self):
+        return {
+            'nomequipe': self.nomequipe,
+            'point': self.point,
+        }
+
+
 class Classement_coureur(db.Model):
     __tablename__ = 'classement_coureur'
     
@@ -25,3 +32,15 @@ class Classement_coureur(db.Model):
     duree_formatted = db.Column(db.String)
     duree_seconde = db.Column(db.String)
     point = db.Column(db.Float)
+
+    def json(self):
+        duree_formatted = str(self.duree_formatted) if self.duree_formatted else ""
+        return {
+            'rang': self.rang,
+            'nom': self.nom,
+            'numero': self.numero,
+            'nomequipe': self.nomequipe,
+            'duree_formatted': duree_formatted,
+            'point': self.point,
+        }
+

@@ -1,6 +1,7 @@
-from flask import redirect, render_template, url_for
+from flask import jsonify, redirect, render_template, request, url_for
 from projet import app
 from projet.annotation.authentication import auth
+from projet.models import classement
 from projet.models.categorie import CategorieModel
 from projet.models.classement import Classement_coureur, Classement_equipe
 from projet.models.etape import EtapeModel
@@ -49,3 +50,29 @@ def classment_etape_cl():
 @app.route('/equipe-home', methods=['GET','POST'])
 def equipe_home():
     return redirect(url_for('liste_etape'))
+
+
+@app.route('/filter_by_etape', methods=['POST'])
+def filter_by_etape():
+    etape_id = request.form.get('etape')
+    categori_id = request.form.get('categorie')
+    col  = getattr(Classement_coureur,'rang')
+    if etape_id == '0':
+        filtered_classements = Classement_coureur.query.filter_by(idetape=0,idcategorie=0).order_by(col.asc()).all()
+    else:
+        filtered_classements = Classement_coureur.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.asc()).all()
+    
+    return jsonify({'results': [cl.json() for cl in filtered_classements]})
+
+
+@app.route('/filter_by_equipe', methods=['POST'])
+def filter_by_equipe():
+    etape_id = request.form.get('etape')
+    categori_id = request.form.get('categorie')
+    col  = getattr(Classement_equipe,'point')
+    if etape_id == '0':
+        filtered_classements = Classement_equipe.query.filter_by(idetape=0,idcategorie=0).order_by(col.desc()).all()
+    else:
+        filtered_classements = Classement_equipe.query.filter_by(idetape=etape_id,idcategorie=categori_id).order_by(col.desc()).all()
+
+    return jsonify({'results': [cl.json() for cl in filtered_classements]})

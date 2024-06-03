@@ -16,21 +16,25 @@
         </div>
         <div class="col-sm-4" >
           <select class="form-select digits annee" id="etape" name="etape"> 
+            <option value="0">Toute etape</option>
             {% for re in etape:%}
             <option value={{re.idetape}}>{{re.nom}}</option>
             {%endfor%}
           </select>
         </div>
         <div class="col-sm-4" >
-            <select class="form-select digits annee" id="categorie" name="categorie"> 
-              <option value="">Homme</option>
-            </select>
-        </div>
+          <select class="form-select digits annee" id="categorie" name="categorie"> 
+            <option value="0">Toute categorie</option>
+            {% for re in cate:%}
+            <option value={{re.idcategorie}}>{{re.nom}}</option>
+            {%endfor%}
+          </select>
+      </div>
       </div>
       <div class="card-block row">
         <div class="col-sm-12 col-lg-12 col-xl-12">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="result-table2">
               <thead class="table-dark">
                 <tr>
                   <th scope="col">Rang</th>
@@ -61,3 +65,8 @@
   </div>
 
 {% endblock %}  
+
+{% block js%}
+<script src="/static/js/filter.js" type="text/javascript"></script>
+<script src="/static/js/filter-equipe.js" type="text/javascript"></script>
+{%endblock%}
