@@ -13,7 +13,7 @@ class ResultatModel(db.Model):
     duree_seconde = db.Column(db.Float)
 
     @classmethod
-    def find_by_equipe_etape(cls, idequipe, idetape):
+    def find_by_equipe_etape(cls, idetape, idequipe):
         tri_col = 'duree_seconde'
         colonne_tri = getattr(ResultatModel, tri_col)
         return cls.query.filter_by(idequipe=idequipe, idetape = idetape).order_by(colonne_tri.asc()).all()

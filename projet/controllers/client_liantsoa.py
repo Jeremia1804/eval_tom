@@ -23,18 +23,20 @@ def liste_etape():
         etape.getMyResultEtapeByEquipe(idequipe)
     return render_template("client/list-etape.html" , etapes=all_etapes)
 
-@app.route('/coureur-etape', methods =['GET'])
-def coureur_etape():
+@app.route('/coureur-etape/<int:id>', methods =['GET'])
+def coureur_etape(id):
     coureur = CoureurModel.find_by_id(getMyId())
-    return render_template("client/coureur-etape.html", coureur = coureur)
+    return render_template("client/coureur-etape.html", coureur = coureur, idetape = id)
 
 @app.route('/classement-equipe' , methods = ['GET'])
 def classment_eq_cl():
-    return render_template("client/classement-equipe.html")
+    all_etapes = EtapeModel.find_all()
+    return render_template("client/classement-equipe.html",etape=all_etapes)
 
 @app.route('/classement-etape' , methods = ['GET'])
 def classment_etape_cl():
-    return render_template("client/classement-etape.html")
+    all_etapes = EtapeModel.find_all()
+    return render_template("client/classement-etape.html",etape=all_etapes)
 
 @app.route('/equipe-home', methods=['GET','POST'])
 def equipe_home():

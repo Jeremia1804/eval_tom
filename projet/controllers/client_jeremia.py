@@ -5,11 +5,10 @@ from projet.services.service_resultat import add_resultat_etape
 from projet.annotation.authentication import auth
 from projet.models.resultat import ResultatModel
 
-@app.route('/etape-coureur', methods = ['POST'])
+@app.route('/etape-coureur/<int:id>', methods = ['POST'])
 @auth('USER')
-def form_etape_coureur():
-    idetape = request.form.get('idetape')
-    # idetape = 1
+def form_etape_coureur(id):
+    idetape = id
     idcoureurs = set(request.form.getlist('idcoureur'))
     idcoureurs = [int(idcoureur) for idcoureur in idcoureurs]
     add_etape_coureurs(idetape, idcoureurs)
