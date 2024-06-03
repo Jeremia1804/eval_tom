@@ -31,7 +31,7 @@ class EtapeModel(db.Model):
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(idetape=id).all()
+        return cls.query.filter_by(idetape=id).one_or_none()
 
     @classmethod
     def find_all(cls):

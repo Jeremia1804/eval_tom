@@ -14,7 +14,7 @@ class Etape_coureurModel(db.Model):
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(idetape_coureur=id).all()
+        return cls.query.filter_by(idetape_coureur=id).first()
 
     @classmethod
     def find_all(cls):
@@ -27,3 +27,12 @@ class Etape_coureurModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+
+class V_etape_coureurModel(db.Model):
+    __tablename__ = 'v_etape_coureur'
+    
+    idetape_coureur = db.Column(db.Integer, primary_key=True)
+    idetape = db.Column(db.Integer)
+    idcoureur = db.Column(db.Integer)
+    idequipe = db.Column(db.Integer)

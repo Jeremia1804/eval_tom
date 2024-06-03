@@ -15,6 +15,6 @@ def auth(*roles):
                 return {'message':'unauthorized'}, 401
             else:
                 flash("Vous devez vous connecter pour accéder à cette page", 'error')
-                return redirect(url_for('login_client'))
+                return {'message':'connecter vous'}
         return wrapper
     return decorator

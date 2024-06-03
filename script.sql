@@ -183,3 +183,9 @@ insert into categorie_coureur (idcategorie,idcoureur) values (2,20);
 insert into categorie_coureur (idcategorie,idcoureur) values (3,20);
 insert into categorie_coureur (idcategorie,idcoureur) values (2,21);
 insert into categorie_coureur (idcategorie,idcoureur) values (3,21);
+
+create view v_etape_coureur as (
+select e.*,eq.idequipe from etape_coureur e 
+join coureur c on e.idcoureur = c.idcoureur
+join equipe eq on eq.idequipe = c.idequipe
+);
