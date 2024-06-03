@@ -3,7 +3,7 @@ from flask import session, redirect, url_for,render_template,request
 from projet.services.service_equipe import add_etape_coureurs
 from projet.services.service_resultat import add_resultat_etape
 from projet.annotation.authentication import auth
-
+from projet.models.resultat import ResultatModel
 
 @app.route('/etape-coureur', methods = ['POST'])
 @auth('USER')
@@ -23,3 +23,9 @@ def form_resultat_etape():
     add_resultat_etape(idetape, idcoureur, heure)
     return redirect(url_for('liste_etape2'))
 
+@app.route('/test', methods = ['GET'])
+def test():
+    result = ResultatModel.find_by_equipe_etape(2,1)
+    for r in result:
+        print(r.idcoureur)
+    return "cool", 200

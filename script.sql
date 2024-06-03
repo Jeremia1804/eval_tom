@@ -184,8 +184,115 @@ insert into categorie_coureur (idcategorie,idcoureur) values (3,20);
 insert into categorie_coureur (idcategorie,idcoureur) values (2,21);
 insert into categorie_coureur (idcategorie,idcoureur) values (3,21);
 
+insert into participation(idcoureur,idetape,arrive) values (1,1,'2024-06-02 08:15:26');
+insert into participation(idcoureur,idetape,arrive) values (5,1,'2024-06-02 08:45:26');
+insert into participation(idcoureur,idetape,arrive) values (3,1,'2024-06-02 08:30:26');
+insert into participation(idcoureur,idetape,arrive) values (6,1,'2024-06-02 09:26:26');
+insert into participation(idcoureur,idetape,arrive) values (9,1,'2024-06-02 08:22:26');
+insert into participation(idcoureur,idetape,arrive) values (10,1,'2024-06-02 08:14:26');
+insert into participation(idcoureur,idetape,arrive) values (14,1,'2024-06-02 08:41:26');
+insert into participation(idcoureur,idetape,arrive) values (11,1,'2024-06-02 08:50:26');
+insert into participation(idcoureur,idetape,arrive) values (20,1,'2024-06-02 10:33:26');
+insert into participation(idcoureur,idetape,arrive) values (18,1,'2024-06-02 09:40:26');
+insert into participation(idcoureur,idetape,arrive) values (16,1,'2024-06-02 08:11:26');
+
+insert into participation(idcoureur,idetape,arrive) values (2,2,'2024-06-02 13:15:26');
+insert into participation(idcoureur,idetape,arrive) values (4,2,'2024-06-02 15:45:26');
+insert into participation(idcoureur,idetape,arrive) values (12,2,'2024-06-02 13:22:26');
+insert into participation(idcoureur,idetape,arrive) values (13,2,'2024-06-02 14:14:26');
+insert into participation(idcoureur,idetape,arrive) values (21,2,'2024-06-02 15:33:26');
+insert into participation(idcoureur,idetape,arrive) values (15,2,'2024-06-02 14:40:26');
+
+insert into participation(idcoureur,idetape,arrive) values (7,3,'2024-06-02 19:15:26');
+insert into participation(idcoureur,idetape,arrive) values (1,3,'2024-06-02 18:45:26');
+insert into participation(idcoureur,idetape,arrive) values (6,3,'2024-06-02 20:45:26');
+insert into participation(idcoureur,idetape,arrive) values (8,3,'2024-06-02 18:22:26');
+insert into participation(idcoureur,idetape,arrive) values (11,3,'2024-06-02 19:00:26');
+insert into participation(idcoureur,idetape,arrive) values (10,3,'2024-06-02 19:14:26');
+insert into participation(idcoureur,idetape,arrive) values (17,3,'2024-06-02 20:33:26');
+insert into participation(idcoureur,idetape,arrive) values (19,3,'2024-06-02 18:06:26');
+insert into participation(idcoureur,idetape,arrive) values (16,3,'2024-06-02 19:40:26');
+
+insert into participation(idcoureur,idetape,arrive) values (2,4,'2024-06-03 13:15:26');
+insert into participation(idcoureur,idetape,arrive) values (3,4,'2024-06-03 11:45:26');
+insert into participation(idcoureur,idetape,arrive) values (14,4,'2024-06-03 12:22:26');
+insert into participation(idcoureur,idetape,arrive) values (9,4,'2024-06-03 12:14:26');
+insert into participation(idcoureur,idetape,arrive) values (20,4,'2024-06-03 11:33:26');
+insert into participation(idcoureur,idetape,arrive) values (15,4,'2024-06-03 13:40:26');
+
+insert into etape_coureur(idcoureur,idetape) values (1,1);
+insert into etape_coureur(idcoureur,idetape) values (5,1);
+insert into etape_coureur(idcoureur,idetape) values (3,1);
+insert into etape_coureur(idcoureur,idetape) values (6,1);
+insert into etape_coureur(idcoureur,idetape) values (9,1);
+insert into etape_coureur(idcoureur,idetape) values (10,1);
+insert into etape_coureur(idcoureur,idetape) values (14,1);
+insert into etape_coureur(idcoureur,idetape) values (11,1);
+insert into etape_coureur(idcoureur,idetape) values (20,1);
+insert into etape_coureur(idcoureur,idetape) values (18,1);
+insert into etape_coureur(idcoureur,idetape) values (16,1);
+insert into etape_coureur(idcoureur,idetape) values (17,1);
+
+insert into etape_coureur(idcoureur,idetape) values (2,2);
+insert into etape_coureur(idcoureur,idetape) values (4,2);
+insert into etape_coureur(idcoureur,idetape) values (12,2);
+insert into etape_coureur(idcoureur,idetape) values (13,2);
+insert into etape_coureur(idcoureur,idetape) values (21,2);
+insert into etape_coureur(idcoureur,idetape) values (15,2);
+
+insert into etape_coureur(idcoureur,idetape) values (7,3);
+insert into etape_coureur(idcoureur,idetape) values (1,3);
+insert into etape_coureur(idcoureur,idetape) values (6,3);
+insert into etape_coureur(idcoureur,idetape) values (8,3);
+insert into etape_coureur(idcoureur,idetape) values (11,3);
+insert into etape_coureur(idcoureur,idetape) values (10,3);
+insert into etape_coureur(idcoureur,idetape) values (17,3);
+insert into etape_coureur(idcoureur,idetape) values (19,3);
+insert into etape_coureur(idcoureur,idetape) values (16,3);
+
+insert into etape_coureur(idcoureur,idetape) values (2,4);
+insert into etape_coureur(idcoureur,idetape) values (3,4);
+insert into etape_coureur(idcoureur,idetape) values (14,4);
+insert into etape_coureur(idcoureur,idetape) values (9,4);
+insert into etape_coureur(idcoureur,idetape) values (20,4);
+insert into etape_coureur(idcoureur,idetape) values (15,4);
+
+
 create view v_etape_coureur as (
 select e.*,eq.idequipe from etape_coureur e 
 join coureur c on e.idcoureur = c.idcoureur
 join equipe eq on eq.idequipe = c.idequipe
+);
+
+
+select  DENSE_RANK() OVER (PARTITION BY vu.idetape, vu.idequipe ORDER BY vu.duree_seconde) AS rang, vu.* from (
+select
+    e.idetape_coureur,
+    e.idetape,
+    e.idequipe,
+    e.idcoureur,
+    c.nom,
+    c.numero,
+    (p.arrive-et.debut) as duree_formatted,
+    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde
+from v_etape_coureur e
+left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
+join etape et on et.idetape = e.idetape
+join coureur c on c.idcoureur = e.idcoureur
+) as vu;
+
+create view resultat as (
+select
+    e.idetape_coureur,
+    e.idetape,
+    e.idequipe,
+    e.idcoureur,
+    c.nom,
+    c.numero,
+    (p.arrive-et.debut) as duree_formatted,
+    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde
+from v_etape_coureur e
+left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
+join etape et on et.idetape = e.idetape
+join coureur c on c.idcoureur = e.idcoureur
 );
