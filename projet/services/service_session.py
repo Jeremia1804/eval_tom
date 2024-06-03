@@ -14,6 +14,7 @@ def connexionAdmin(login,pwd):
 
 def connexionEquipe(login,pwd):
     equipe = EquipeModel.query.filter_by(login=login).one_or_none()
+    print(equipe)
     if not equipe or not equipe.check_pwd(pwd):
         return False
     setSession('USER',equipe.idequipe, equipe.nom)

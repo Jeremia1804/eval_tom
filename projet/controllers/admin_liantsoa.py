@@ -27,7 +27,7 @@ def classment_eq():
 def classment_etape():
     return render_template("admin/classement-etape.html")
 
-@app.route('/admin-home' , methods = ['POST'])
+@app.route('/admin-home' , methods = ['GET','POST'])
 def admin_home():
     return redirect(url_for('liste_etape2'))
 

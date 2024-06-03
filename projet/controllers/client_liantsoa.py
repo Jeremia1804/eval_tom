@@ -26,6 +26,6 @@ def classment_eq_cl():
 def classment_etape_cl():
     return render_template("client/classement-etape.html")
 
-@app.route('/equipe-home', methods=['POST'])
+@app.route('/equipe-home', methods=['GET','POST'])
 def equipe_home():
     return redirect(url_for('liste_etape'))
