@@ -9,10 +9,11 @@ from projet.annotation.authentication import auth
 @auth('USER')
 def form_etape_coureur():
     idetape = request.form.get('idetape')
+    # idetape = 1
     idcoureurs = set(request.form.getlist('idcoureur'))
     idcoureurs = [int(idcoureur) for idcoureur in idcoureurs]
     add_etape_coureurs(idetape, idcoureurs)
-    return "tafiditra", 200
+    return redirect(url_for('liste_etape'))
 
 @app.route('/resultat-etape', methods = ['POST'])
 def form_resultat_etape():
@@ -20,5 +21,5 @@ def form_resultat_etape():
     idcoureur = request.form.get('idcoureur')
     heure = request.form.get('heure')
     add_resultat_etape(idetape, idcoureur, heure)
-    return "cool", 200
+    return redirect(url_for('liste_etape2'))
 

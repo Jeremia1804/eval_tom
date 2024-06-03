@@ -1,10 +1,11 @@
 from flask import redirect, render_template, url_for
 from projet import app
+from projet.models.coureur import CoureurModel
+from projet.services.service_session import getMyId
 
 @app.route('/', methods = ['GET'])
 def index():
     return redirect(url_for('login_equipe'))
-
 
 @app.route('/login-equipe', methods = ['GET'])
 def login_equipe():
@@ -16,7 +17,8 @@ def liste_etape():
 
 @app.route('/coureur-etape', methods =['GET'])
 def coureur_etape():
-    return render_template("client/coureur-etape.html")
+    coureur = CoureurModel.find_by_id(getMyId())
+    return render_template("client/coureur-etape.html", coureur = coureur)
 
 @app.route('/classement-equipe' , methods = ['GET'])
 def classment_eq_cl():

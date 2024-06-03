@@ -31,7 +31,7 @@ class CoureurModel(db.Model):
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(idcoureur=id).all()
+        return cls.query.filter_by(idequipe=id).all()
 
     @classmethod
     def find_all(cls):

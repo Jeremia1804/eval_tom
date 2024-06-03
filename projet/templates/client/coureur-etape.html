@@ -15,15 +15,19 @@
         <h3>Ajouter coureur</h3>
       </div>
       <div class="card-body">
-        <form class="theme-form row" method="post" action="">
-            <div class="mb-3">
-                <select class="form-select digits annee" id="exampleFormControlSelect9">
-                    <option value="2020">2020</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                </select>
+        <form class="theme-form row" method="post" action="/etape-coureur">
+          <div class="mb-3" >
+              <div class="card-body animate-chk">
+                <div class="row">
+                  <div class="col">
+                    {% for c in coureur:%}
+                    <label class="d-block" for="chk-ani">
+                      <input class="checkbox_animated" id="chk-ani" name="idcoureur" type="checkbox" data-bs-original-title="" value={{c.idcoureur}}>{{c.nom}}
+                    </label>
+                    {% endfor%}
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="col-12">
                 <button class="btn btn-primary btn-block" type="submit" title="">Submit</button>

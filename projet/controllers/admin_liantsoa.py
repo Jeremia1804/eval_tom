@@ -1,5 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from projet import app
+from projet.models.coureur import CoureurModel
+from projet.models.etape import EtapeModel
 
 
 @app.route('/login-admin', methods = ['GET'])
@@ -8,11 +10,14 @@ def login_admin():
 
 @app.route('/liste-etape-ad', methods = ['GET'])
 def liste_etape2():
-    return render_template("admin/list-etapead.html")
+    etape = EtapeModel.find_all()
+    return render_template("admin/list-etapead.html", etape = etape)
 
 @app.route('/coureur-temps' , methods = ['GET'])
 def coureur_temps():
-    return render_template("admin/coureur-temps.html")
+    etape = EtapeModel.find_all()
+    coureur = CoureurModel.find_all()
+    return render_template("admin/coureur-temps.html", etape = etape, coureur = coureur)
 
 @app.route('/print_chrono',methods=['POST'])
 def printchrono():

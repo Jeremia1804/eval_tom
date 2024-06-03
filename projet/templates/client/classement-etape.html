@@ -2,6 +2,60 @@
 
 {% block body %}
 
-
+<div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12"> 
+    <div class="card">
+      <div class="row m-3">
+        <div class="col-sm-4">
+          <h3>Classement des equipes</h3>
+        </div>
+        <div class="col-sm-4" >
+            <select class="form-select digits annee" id="etape" name="etape"> 
+              <option value="">Etape 1</option>
+            </select>
+        </div>
+        <div class="col-sm-4" >
+            <select class="form-select digits annee" id="categorie" name="categorie"> 
+              <option value="">Homme</option>
+            </select>
+        </div>
+      </div>
+      <div class="card-block row">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Coureur</th>
+                  <th scope="col">Numero</th>
+                  <th scope="col">Genre</th>
+                  <th scope="col">Categorie</th>
+                  <th scope="col">Equipe</th>
+                  <th scope="col">Chrono</th>
+                  <th scope="col">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}  

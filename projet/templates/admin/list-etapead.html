@@ -29,42 +29,22 @@
                             <table class="table header-border table-responsive-sm mypagination"  nb="35">
                               <thead>
                                 <tr>        
-                                    <th > Nom </th>
-                                    <th > Rang </th>
-                                    <th > Nombre de coureur </th>
-                                    <th > Longueur</th>
+                                  <th> Nom </th>
+                                  <th> Rang </th>
+                                  <th> Nombre de coureur </th>
+                                  <th> Longueur</th>
                                 </tr>
                               </thead>
                               <tbody>
+                                {% for e in etape:%}
                                 <tr>
-                                    <td >etape 1</td>
-                                    <td >1</td>
-                                    <td >3</td>
-                                    <td >20.5</td>
-                                    <td>
-                                      <a class="btn btn-primary btn-block" href="/coureur-temps">Affecter temps</a>
-                                    </td>
+                                  <td >{{e.nom}}</td>
+                                  <td >{{e.rang}}</td>
+                                  <td >{{e.nombre_coureur}}</td>
+                                  <td >{{e.longueur}}</td>
                                 </tr>
-                                <tr>
-                                  <td >etape 1</td>
-                                  <td >1</td>
-                                  <td >3</td>
-                                  <td >20.5</td>
-                                  <td>
-                                    <a class="btn btn-primary btn-block" href="/coureur-temps">Affecter temps</a>
-                                  </td>
-                              </tr>
-                              <tr>
-                                <td >etape 1</td>
-                                <td >1</td>
-                                <td >3</td>
-                                <td >20.5</td>
-                                <td>
-                                  <a class="btn btn-primary btn-block" href="/coureur-temps">Affecter temps</a>
-                                </td>
-                            </tr>
+                                {% endfor%}
                               </tbody>
-                            
                             </table>
                         </div>
                     </div>
