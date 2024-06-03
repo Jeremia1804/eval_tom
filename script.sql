@@ -61,9 +61,7 @@ create table etape_coureur(
 create table point(
     idpoint serial primary key,
     classement int,
-    valeur double precision,
-    idetape int,
-    foreign key (idetape) references etape(idetape)
+    valeur double precision
 );
 
 create table participation(
@@ -85,22 +83,10 @@ create table penalite(
     foreign key (idcoureur) references coureur(idcoureur)
 );
 
-insert into point (classement,valeur,idetape) values (1,10,1);
-insert into point (classement,valeur,idetape) values (2,6,1);
-insert into point (classement,valeur,idetape) values (3,2,1);
+insert into point (classement,valeur) values (1,10);
+insert into point (classement,valeur) values (2,4);
+insert into point (classement,valeur) values (3,2);
 
-insert into point (classement,valeur,idetape) values (1,15,2);
-insert into point (classement,valeur,idetape) values (2,10,2);
-insert into point (classement,valeur,idetape) values (3,4,2);
-insert into point (classement,valeur,idetape) values (4,1,2);
-
-insert into point (classement,valeur,idetape) values (1,8,3);
-insert into point (classement,valeur,idetape) values (2,3,3);
-insert into point (classement,valeur,idetape) values (3,1,3);
-
-insert into point (classement,valeur,idetape) values (1,10,4);
-insert into point (classement,valeur,idetape) values (2,7,4);
-insert into point (classement,valeur,idetape) values (3,4,4);
 
 insert into equipe (nom,login,pwd) values('EQ1','equipe1','password1');
 insert into equipe (nom,login,pwd) values('EQ2','equipe2','password2');
@@ -295,4 +281,75 @@ from v_etape_coureur e
 left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
 join etape et on et.idetape = e.idetape
 join coureur c on c.idcoureur = e.idcoureur
+);
+
+
+create or replace view result_fin as (
+select  * from (
+select
+DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY r.duree_seconde) AS rang,
+r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted from resultat r
+join categorie_coureur c on r.idcoureur = c.idcoureur
+join coureur co on co.idcoureur = r.idcoureur
+) vu
+union select * from (
+select
+DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY r.duree_seconde) AS rang,
+r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted from resultat r
+join coureur co on co.idcoureur = r.idcoureur
+) as vu1
+);
+
+create view result_final as (
+select * from result_fin union
+select * from (
+select 
+DENSE_RANK() OVER (PARTITION BY vu.idetape ORDER BY vu.duree_seconde) AS rang,
+vu.idetape,
+vu.idcategorie,
+vu.idcoureur,
+vu.idequipe,
+vu.duree_seconde,
+vu.duree_formatted
+from (
+select r.idcategorie,r.idcoureur,r.idequipe,sum(r.duree_seconde) as duree_seconde, sum(duree_formatted) as duree_formatted, 0 as idetape from result_fin r
+group by r.idcategorie,r.idcoureur,r.idequipe
+) vu
+) vu1
+);
+
+create or replace view result_final_point aS (
+    select r.*,case when p.classement is null then 0 else p.valeur end as point from result_final r
+    left join point p on p.classement = r.rang
+);
+
+create or replace view classement_equipe as (
+    select
+    ROW_NUMBER() OVER (ORDER BY vu.point) AS rang,
+    vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point
+    from (
+    select r.idetape,r.idcategorie,r.idequipe,sum(point) as point
+    from result_final_point r
+    group by r.idetape,r.idcategorie,r.idequipe ) vu
+    join equipe e on e.idequipe = vu.idequipe
+);
+
+
+create or replace view classement_coureur as (
+    select
+    ROW_NUMBER() OVER (ORDER BY r.point) AS id,
+    r.rang,
+    r.idetape,
+    r.idcategorie,
+    r.idequipe,
+    c.idcoureur,
+    c.nom,
+    c.numero,
+    e.nom as nomequipe,
+    r.duree_formatted,
+    r.duree_seconde,
+    r.point
+    from result_final_point r
+    join coureur c on c.idcoureur = r.idcoureur
+    join equipe e on e.idequipe = r.idequipe
 );
