@@ -1,5 +1,8 @@
 from flask import redirect, render_template, url_for
 from projet import app
+from projet.annotation.authentication import auth
+from projet.models.etape import EtapeModel
+from projet.services.service_session import getMyId
 
 @app.route('/', methods = ['GET'])
 def index():
@@ -11,8 +14,13 @@ def login_equipe():
     return render_template("login-equipe.html")
 
 @app.route('/liste-etape', methods = ['GET'])
+@auth('USER')
 def liste_etape():
-    return render_template("client/list-etape.html")
+    idequipe = getMyId()
+    all_etapes = EtapeModel.find_all()
+    for etape in all_etapes:
+        etape.getMyResultEtapeByEquipe(idequipe)
+    return render_template("client/list-etape.html" , etapes=all_etapes)
 
 @app.route('/coureur-etape', methods =['GET'])
 def coureur_etape():

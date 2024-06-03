@@ -1,5 +1,6 @@
 from projet.db import db
 from werkzeug.security import hmac
+from projet.models.resultat import ResultatModel
 
 class EtapeModel(db.Model):
     __tablename__ = 'etape'
@@ -40,6 +41,9 @@ class EtapeModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def getMyResultEtapeByEquipe(self,idequipe):
+        self.result = ResultatModel.find_by_equipe_etape(self.idetape,idequipe)        
 
     def delete_from_db(self):
         db.session.delete(self)

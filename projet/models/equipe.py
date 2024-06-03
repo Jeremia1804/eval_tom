@@ -9,6 +9,7 @@ class EquipeModel(db.Model):
     login = db.Column(db.String(50))
     pwd = db.Column(db.String(80))
     
+    coureurs = db.relationship('CoureurModel', backref='equipe', lazy=True)
 
     def __init__(self, nom,login,pwd):
         self.login = login
