@@ -20,10 +20,12 @@
 
 <div class="container-fluid">
   <div class=row>
-    <div class="col-sm-6">
+
+    {% for re in etapes:%}
+    <div class="col-sm-7">
       <div class="card">
-        <div class="card-block row">
-            <div style="margin-left: 10px; margin-top: 10px;"><em style="font-weight: bold;"> Etape 1 </em> (55 km) - 2 coureurs</div> 
+          <div class="card-block row">
+            <div style="margin-left: 10px; margin-top: 10px;"><em style="font-weight: bold;"> {{re.nom}}</em> ({{re.longueur}} km) - {{re.nombre_coureur}} coureurs</div> 
             <div class="col-sm-12 col-lg-12 col-xl-12">
               <div class="table-responsive">
                 <table class="table header-border table-responsive-sm mypagination"  nb="35">
@@ -34,11 +36,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
+                    {% for w in re.result:%}
                     <tr>
-                      <td>Coureur 1</td>
-                      <td>00:01:02</td>
+                      <td>{{w.nom}}</td>
+                      <td>{{w.duree_seconde}}</td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -46,40 +49,10 @@
           </div>
         </div>
         <a class="btn btn-primary btn-block" href="/coureur-etape">Attribuer coureur</a>
-      </div>
     </div>
     <div style="margin-top: 40px;"> </div>
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-block row">
-            <div style="margin-left: 10px; margin-top: 10px;"><em style="font-weight: bold;"> Etape 1 </em> (55 km) - 2 coureurs</div> 
-            <div class="col-sm-12 col-lg-12 col-xl-12">
-              <div class="table-responsive">
-                <table class="table header-border table-responsive-sm mypagination"  nb="35">
-                  <thead>
-                    <tr>        
-                      <th>Nom</th>
-                      <th>Temps chrono</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Coureur 1</td>
-                      <td>00:01:02</td>
-                    </tr>
-                    <tr>
-                      <td>Coureur 1</td>
-                      <td>00:01:02</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="btn btn-primary btn-block" href="/coureur-etape">Attribuer coureur</a>
-      </div>
-    </div>
+    {% endfor %}
+    
   </div>
 </div>
 
