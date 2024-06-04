@@ -1,0 +1,55 @@
+{% extends 'main/admin.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        
+      </div>
+    </div>
+  </div>
+
+<div class="col-xl-4 col-lg-6 box-col-4">
+    <div class="card">
+      <div class="card-header pb-0">
+        <h3>Ajout de penalite</h3>
+      </div>
+      <div class="card-body">
+        <form class="theme-form row" method="post" action="/insert-penalite">
+          <div class="mb-3" >
+            <label class="d-block" for="etape">Etapes
+           
+              <select class="form-select digits annee" id="etape"  name="idetape">
+                {% for e in etape:%}
+                  <option value={{e.idetape}}>{{e.nom}}</option>
+                {% endfor%}
+              </select>
+            </label>
+          </div>
+
+            <div class="mb-3" >
+              <label class="d-block" for="equipe">equipe
+             
+                <select class="form-select digits annee" id="equipe" name="idequipe">
+                  {% for c in equipe:%}
+                  <option value={{c.idequipe}}>{{c.nom}}</option>
+                  {% endfor%}
+                </select>
+              </label>
+            </div>
+            
+            <div class="mb-3" >
+              <label class="d-block" for="duree">Penalite
+                <input class="form-control" type="time" step="1" id="duree" name="penalite">
+              </label>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary btn-block" type="submit" title="">Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}  
