@@ -8,11 +8,12 @@
       </div>
     </div>
   </div>
-<div class="col-sm-12"> 
+  <div class="row">
+<div class="col-sm-7"> 
     <div class="card">
       <div class="row m-3">
         <div class="col-sm-4">
-          <h3>Classement des equipes</h3>
+          <h3>Classement</h3>
         </div>
         <div class="col-sm-4" >
           <select class="form-select digits annee" id="etape" name="etape"> 
@@ -55,6 +56,15 @@
       </div>
     </div>
   </div>
+  <script src="/static/js/mychart.min.js"></script>
+  <div class="col-sm-5">
+    <div style="width: 60%; margin: auto; margin-top: 10px;">
+      <canvas id="myPieChart"></canvas>
+    </div>
+    <a href="" id="cert" class="btn btn-primary " style="margin-left: 180px; margin-top: 10px;">Get Certificat</a>
+
+  </div>
+</div>
   
 {% endblock %}  
 

@@ -23,10 +23,13 @@
           </select>
         </div>
         <div class="col-sm-4" >
-            <select class="form-select digits annee" id="categorie" name="categorie"> 
-              <option value="">Homme</option>
-            </select>
-        </div>
+          <select class="form-select digits annee" id="categorie" name="categorie"> 
+            <option value="0">Toute categorie</option>
+            {% for re in cate:%}
+            <option value={{re.idcategorie}}>{{re.nom}}</option>
+            {%endfor%}
+          </select>
+      </div>
       </div>
       <div class="card-block row">
         <div class="col-sm-12 col-lg-12 col-xl-12">

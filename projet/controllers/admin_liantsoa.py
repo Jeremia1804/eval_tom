@@ -8,6 +8,7 @@ from projet.models.etape import EtapeModel
 from projet.models.etape_coureur import Etape_coureurModel
 from projet.models.participation import ParticipationModel
 from projet.models.point import PointModel
+from projet.services.export import get_pdf
 from projet.services.init_data import delete_all_data
 from projet.models.categorie_coureur import Categorie_coureurModel
 from projet.services.service_resultat import genererCategorie
@@ -70,3 +71,12 @@ def generer_categorie():
 def delete_all():
     delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,Categorie_coureurModel,EtapeModel,CoureurModel,EquipeModel)
     return redirect(url_for('liste_etape2'))
+
+
+@app.route('/export-pdf/<int:id>', methods = ['POST','GET'])
+def export_pdf(id):
+    pdf_io = get_pdf(id)
+    headers = {
+        'content-type': 'application.pdf',
+        'content-disposition': 'inline  ; filename=certificat.pdf'}
+    return pdf_io, 200, headers
