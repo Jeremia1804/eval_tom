@@ -20,7 +20,10 @@ create table equipe(
 
 create table categorie(
     idcategorie serial primary key,
-    nom varchar(30)
+    nom varchar(30),
+    sexe varchar(5),
+    minage int,
+    maxage int
 );
 
 create table coureur(
@@ -353,3 +356,27 @@ create or replace view classement_coureur as (
     join coureur c on c.idcoureur = r.idcoureur
     join equipe e on e.idequipe = r.idequipe
 );
+
+-- manomboka eto alefa TOm aa de afaka manao import otran olon kafa enao ee
+
+alter table categorie add sexe varchar(5);
+alter table categorie add minage int;
+alter table categorie add maxage int;
+
+update categorie set sexe='F' where idcategorie = 2;
+update categorie set sexe='M' where idcategorie = 1;
+update categorie set minage=0, maxage=18 where idcategorie = 3;
+update categorie set minage=18, maxage=1000 where idcategorie = 4;
+update categorie set minage=0, maxage=1000 where idcategorie < 3;
+
+create view v_catego_coureur as (
+select vu.idcoureur,c.idcategorie from (
+select idcoureur,genre,EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM dtn) as age from coureur
+) vu 
+cross join categorie c
+where (vu.age<= c.maxage and vu.age>minage) and (vu.genre = c.sexe or c.sexe is null)
+);
+
+select * from v_catego_coureur v 
+left join categorie_coureur c on c.idcoureur = v.idcoureur and c.idcategorie = v.idcategorie
+where c.idcategorie_coureur is null;
