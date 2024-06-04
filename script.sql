@@ -254,22 +254,6 @@ join equipe eq on eq.idequipe = c.idequipe
 );
 
 
-select  DENSE_RANK() OVER (PARTITION BY vu.idetape, vu.idequipe ORDER BY vu.duree_seconde) AS rang, vu.* from (
-select
-    e.idetape_coureur,
-    e.idetape,
-    e.idequipe,
-    e.idcoureur,
-    c.nom,
-    c.numero,
-    (p.arrive-et.debut) as duree_formatted,
-    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde
-from v_etape_coureur e
-left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
-join etape et on et.idetape = e.idetape
-join coureur c on c.idcoureur = e.idcoureur
-) as vu;
-
 create view resultat as (
 select
     e.idetape_coureur,
@@ -286,6 +270,8 @@ join etape et on et.idetape = e.idetape
 join coureur c on c.idcoureur = e.idcoureur
 );
 
+select TO_CHAR((interval '1 second' * duree_seconde), 'HH24:MI:SS') AS formatted_time from resultat;
+select EXTRACT(EPOCH FROM duree_formatted) AS total_seconds from resultat;
 
 create or replace view result_fin as (
 select  * from (
@@ -302,25 +288,6 @@ r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_form
 join coureur co on co.idcoureur = r.idcoureur
 ) as vu1
 );
-
-create view result_final as (
-select * from result_fin union
-select * from (
-select 
-DENSE_RANK() OVER (PARTITION BY vu.idetape ORDER BY vu.duree_seconde) AS rang,
-vu.idetape,
-vu.idcategorie,
-vu.idcoureur,
-vu.idequipe,
-vu.duree_seconde,
-vu.duree_formatted
-from (
-select r.idcategorie,r.idcoureur,r.idequipe,sum(r.duree_seconde) as duree_seconde, sum(duree_formatted) as duree_formatted, 0 as idetape from result_fin r
-group by r.idcategorie,r.idcoureur,r.idequipe
-) vu
-) vu1
-);
-
 
 -- voloany
 
@@ -351,6 +318,7 @@ create or replace view result_final_point aS (
 );
 
 -- farany
+
 
 create or replace view classement_equipe as (
     select
@@ -422,4 +390,23 @@ c.idcategorie,c.idequipe,ca.nom,c.nomequipe,c.point
 from classement_equipe c
 join categorie ca on ca.idcategorie = c.idcategorie 
 where c.idetape = 0 and c.laharana = 1
+);
+
+-- Eto ndrai zalah amzay mety le penalite ee
+create table penalite(
+    idpenalite serial primary key,
+    idequipe int,
+    idetape int,
+    penalite double precision,
+    foreign key (idetape) references etape(idetape),
+    foreign key (idequipe) references equipe(idequipe)
+);
+
+create or replace view v_penalite as (
+    select p.idpenalite,e.nom as nomequipe, et.nom as nometape,
+    TO_CHAR((interval '1 second' * p.penalite), 'HH24:MI:SS') AS chrono,
+    p.penalite
+    from penalite p
+    join equipe e on e.idequipe = p.idequipe
+    join etape et on et.idetape = p.idetape
 );

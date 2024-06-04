@@ -1,6 +1,8 @@
 from projet import app
 from flask import session, redirect, url_for,render_template,request
 from projet.services.service_import import importer_point, upload, importer_etape_resultat
+from projet.services.service_penalite import penaliser, drop_penalite
+from projet.models.penalite import V_penalite
 
 @app.route('/import-point', methods = ['POST'])
 def import_point():
@@ -22,3 +24,16 @@ def import_etape_resultat():
     filename_resultat = upload(file_resultat)
     importer_etape_resultat(filename_etape,filename_resultat)
     return render_template("admin/classement-equipe.html")
+
+@app.route('/add-penalite', methods = ['POST'])
+def add_penalite():
+    idetape = request.form.get('idetape')
+    idequipe = request.form.get('idequipe')
+    chrono = request.form.get('chrono')
+    penaliser(idequipe, idetape,chrono)
+    return "cool", 200
+
+@app.route('/delete-penalite/<int:id>', methods = ['POST','GET','DELETE'])
+def delete_penalite(id):
+    drop_penalite(id)
+    return "cool", 200
