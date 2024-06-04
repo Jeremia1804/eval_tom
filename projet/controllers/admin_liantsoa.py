@@ -39,7 +39,7 @@ def classment_eq():
     all_cate = CategorieModel.find_all()
     col  = getattr(Classement_equipe,'point')
     cl = Classement_equipe.query.filter_by(idetape=0,idcategorie=0).order_by(col.desc()).all()
-    return render_template("client/classement-equipe.html",etape=all_etapes,cate=all_cate,cl=cl)
+    return render_template("admin/classement-equipe.html",etape=all_etapes,cate=all_cate,cl=cl)
 
 @app.route('/classement-etape-ad' , methods = ['GET'])
 def classment_etape():
@@ -47,7 +47,7 @@ def classment_etape():
     all_cate = CategorieModel.find_all()
     col  = getattr(Classement_coureur,'rang')
     cl = Classement_coureur.query.filter_by(idetape=0,idcategorie=0).order_by(col.asc()).all()
-    return render_template("client/classement-etape.html",etape=all_etapes,cate=all_cate,cl=cl)
+    return render_template("admin/classement-etape.html",etape=all_etapes,cate=all_cate,cl=cl)
 
 @app.route('/admin-home' , methods = ['GET','POST'])
 def admin_home():
