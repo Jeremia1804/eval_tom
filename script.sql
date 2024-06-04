@@ -369,6 +369,11 @@ update categorie set minage=0, maxage=18 where idcategorie = 3;
 update categorie set minage=18, maxage=1000 where idcategorie = 4;
 update categorie set minage=0, maxage=1000 where idcategorie < 3;
 
+-- insert into categorie (nom,sexe,minage,maxage) values('Homme', 'M', 0,1000);
+-- insert into categorie (nom,sexe,minage,maxage) values('Femme', 'F', 0,1000);
+-- insert into categorie (nom,sexe,minage,maxage) values('Junior', null, 0,18);
+-- insert into categorie (nom,sexe,minage,maxage) values('Senior', null, 18,1000);
+
 create view v_catego_coureur as (
 select vu.idcoureur,c.idcategorie from (
 select idcoureur,genre,EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM dtn) as age from coureur
