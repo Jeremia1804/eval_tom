@@ -27,6 +27,8 @@ create or replace view v_impetapecoureur as (
 select e.idetape,c.idcoureur from import_resultat i
 join coureur c on c.numero  = i.numero_dossard
 join etape e on e.rang = i.etape_rang
+left join etape_coureur ec on ec.idetape = e.idetape and ec.idcoureur = c.idcoureur
+where ec.idetape_coureur is null
 );
 
 
@@ -36,6 +38,8 @@ create or replace view v_impparticipation as (
 select e.idetape,c.idcoureur,i.arrivee from import_resultat i
 join coureur c on c.numero  = i.numero_dossard
 join etape e on e.rang = i.etape_rang
+left join participation ec on ec.idetape = e.idetape and ec.idcoureur = c.idcoureur
+where ec.idparticipation is null
 );
 
 insert into participation (idetape,idcoureur,arrive) select * from v_impparticipation;
