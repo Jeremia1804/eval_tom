@@ -3,7 +3,11 @@ from projet import app
 from projet.models.categorie import CategorieModel
 from projet.models.classement import Classement_coureur, Classement_equipe
 from projet.models.coureur import CoureurModel
+from projet.models.equipe import EquipeModel
 from projet.models.etape import EtapeModel
+from projet.models.etape_coureur import Etape_coureurModel
+from projet.models.participation import ParticipationModel
+from projet.models.point import PointModel
 from projet.services.init_data import delete_all_data
 
 
@@ -61,5 +65,5 @@ def generer_categorie():
 
 @app.route('/delete-all', methods =['GET'])
 def delete_all():
-    delete_all_data()
+    delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,EtapeModel,CoureurModel,CategorieModel,EquipeModel)
     return {'message': 'fafa-na'}
