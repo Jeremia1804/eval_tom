@@ -1,20 +1,29 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    let rowToDelete = '';
+$(document).ready(function() {
+        let penaltyIdToDelete = null;
+        let rowIdToDelete = null;
 
-    // Listener for opening the modal and setting the row to delete
-    const deleteButtons = document.querySelectorAll('button[data-row-id]');
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            rowToDelete = button.getAttribute('data-row-id');
+        // Capture the penalty ID and row ID when delete button is clicked
+        $('.delete-btn').on('click', function() {
+            penaltyIdToDelete = $(this).val();
+            rowIdToDelete = 'row'+penaltyIdToDelete;
+            console.log(rowIdToDelete)
+        });
+
+        // Perform AJAX request to delete the penalty
+        $('#confirmDelete').on('click', function() {
+            if (penaltyIdToDelete) {
+                $.ajax({
+                    url: '/delete-penalite/'+penaltyIdToDelete, // Your Flask route for deletion
+                    type: 'POST',
+                    contentType: false,
+                    success: function(response) {
+                            $('#' + rowIdToDelete).remove(); // Remove the row from the table
+                    },
+                    error: function(error) {
+                        console.error('Erreur:', error);
+                        alert('Erreur lors de la suppression de la pénalité.');
+                    }
+                });
+            }
         });
     });
-
-    // Listener for the confirmation button in the modal
-    const confirmDeleteButton = document.getElementById('confirmDelete');
-    confirmDeleteButton.addEventListener('click', () => {
-        if (rowToDelete) {
-            document.getElementById(rowToDelete).remove();
-            rowToDelete = '';
-        }
-    });
-});

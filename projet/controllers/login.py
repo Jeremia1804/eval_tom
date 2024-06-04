@@ -21,5 +21,5 @@ def connexadmin():
 @app.route('/logout', methods = ['GET','POST'])
 def logout():
     session.clear()
-    return 'tapaka', 200
+    return redirect(url_for('index'))
     
