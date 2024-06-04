@@ -1,119 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marathon Certificate</title>
-    <style>
-        @page {
-            size: A4 landscape;
-            margin: 1cm;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .certificate {
-            width: 80%;
-            margin: 50px auto;
-            padding: 40px;
-            background-color: #fff;
-            color: #333;
-            border-radius: 15px;
-            border: 5px solid #c0392b;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        /* .certificate h1 {
-            font-size: 48px;
-            margin: 20px 0;
-            color: #c0392b;
-        }
-        .certificate h2 {
-            font-size: 32px;
-            margin: 10px 0;
-            color: #c0392b;
-        }
-        .certificate p {
-            font-size: 18px;
-            margin: 20px 0;
-            color: #333;
-        }
-        .details {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            border-top: 2px solid #c0392b;
-            padding-top: 20px;
-        }
-        .details div {
-            flex: 1;
-            text-align: center;
-        }
-        .signature {
-            margin-top: 40px;
-            text-align: left;
-        }
-        .signature span {
-            display: block;
-            margin: 20px 0;
-        }
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 40px;
-            font-weight: bold;
-            color: #c0392b;
-        }
-        .medal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        .medal img {
-            width: 100px;
-        }
-        .ribbon {
-            width: 100%;
-            height: 20px;
-            background-color: #c0392b;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 15px 15px 0 0;
-        } */
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marathon Champion Certificate</title>
+<style>
+    @page {
+        size: A4 landscape;
+        margin: 1cm;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        border: 10px solid #A21E1E;
+        padding: 20px;
+        text-align: center;
+    }
+    .header, .content, .details, .signature {
+        margin-bottom: 20px;
+    }
+    .header {
+        width: 100%;
+        display: inline-block;
+    }
+    .header img {
+        float: right;
+        width: 80px;
+    }
+    .header h1 {
+        color: #A21E1E;
+        font-size: 48px;
+        margin: 0;
+    }
+    .content h2, .content h3 {
+        color: #A21E1E;
+        margin: 0;
+    }
+    .content h2 {
+        font-size: 36px;
+    }
+    .content h3 {
+        font-size: 28px;
+    }
+    .content p {
+        font-size: 18px;
+    }
+    .winner {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .details {
+        font-size: 18px;
+        width: 100%;
+        display: inline-block;
+    }
+    .details div {
+        float: left;
+        width: 45%;
+        text-align: left;
+        margin-left: 5%;
+    }
+    .details div p {
+        margin: 5px 0;
+    }
+    .signature {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .signature span {
+        display: block;
+        border-top: 1px solid #000;
+        width: 200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>
 </head>
 <body>
-    <div class="certificate">
-        <div class="ribbon"></div>
-        <div class="logo">
-            LOGO
+    <div class="container">
+        <div class="header">
         </div>
-        <div class="medal">
-            <img src="./medaille.png" alt="Medal">
+        <div class="content">
+            <h2>Marathon Champion {{categorie}}</h2>
+            <h3>Certificate of Achievement</h3>
+            <p>This is to Certify that</p>
+            <p class="winner">{{equipe}}</p>
+            <p>has successfully completed the Marathon with outstanding performance.</p>
+            <p>We truly appreciate the hard work, persistence, and determination shown throughout the race.</p>
         </div>
-        <h1>Marathon Champion (Junior)</h1>
-        <h2>Certificate of Achievement</h2>
-        <p>This is to Certify that</p>
-        <h2>Player Name</h2>
-        <p>has successfully completed the Marathon with outstanding performance.</p>
-        <p>We truly appreciate the hard work, persistence, and determination shown throughout the race.</p>
         <div class="details">
             <div>
-                <p>Points: <strong>250</strong></p>
+                <p><strong>Points:</strong>{{point}}</p>
             </div>
             <div>
-                <p>Date: <strong>2024-06-04</strong></p>
+                <p><strong>Date:</strong> {{date}}</p>
             </div>
-            <div class="signature">
-                <span>_________________________</span>
-                <span>Signature</span>
-            </div>
+        </div>
+        <div class="signature">
+            <span>Signature</span>
         </div>
     </div>
 </body>

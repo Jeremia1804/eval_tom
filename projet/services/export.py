@@ -1,18 +1,26 @@
-from io import BytesIO
 from flask import render_template
-from xhtml2pdf import pisa
+import docraptor
 
-
-def render_pdf(html):
-    pdf = BytesIO()
-    encoded_html = html.encode('utf-8')
-    pisa.CreatePDF(BytesIO(encoded_html), pdf)
-    return pdf.getvalue()
-
+from projet.models.champion import Champion
 
 def get_pdf(id):
-    html = render_template('admin/monpdf.html')    
-    pdf = render_pdf(html)
+    champion = Champion.query.filter_by(idcategorie=id).first()
+    categorie = champion.nom
+    equipe = champion.nomequipe
+    point = champion.point
+    date = "02-03-2024"
+    html = render_template('admin/monpdf.html',categorie=categorie, equipe=equipe,point =point,date=date)    
 
-    pdf_io = BytesIO(pdf)
-    return pdf_io
+    doc_api = docraptor.DocApi()
+    doc_api.api_client.configuration.username = '5HpNsMvTVZ6aweuqgoRY'
+    # doc_api.api_client.configuration.debug = True
+
+    response = doc_api.create_doc({
+    "test": True,                                                   # test documents are free but watermarked
+    "document_content": html,    # supply content directly
+    # "document_url": "http://docraptor.com/examples/invoice.html", # or use a url
+    "name": "docraptor-python.pdf",                                 # help you find a document later
+    "document_type": "pdf",                                         # pdf or xls or xlsx
+    
+    })
+    return response

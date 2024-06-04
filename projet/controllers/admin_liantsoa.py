@@ -75,8 +75,14 @@ def delete_all():
 
 @app.route('/export-pdf/<int:id>', methods = ['POST','GET'])
 def export_pdf(id):
-    pdf_io = get_pdf(id)
+    resp = get_pdf(id)
     headers = {
         'content-type': 'application.pdf',
-        'content-disposition': 'inline  ; filename=certificat.pdf'}
-    return pdf_io, 200, headers
+        'content-disposition': 'attachment  ; filename=certificat.pdf'}
+    return resp, 200, headers
+
+
+@app.route('/list-penalite', methods =['GET'])
+def list_penalite():
+    return render_template("admin/list-penalite.html")
+

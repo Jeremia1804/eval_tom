@@ -1,0 +1,74 @@
+{% extends 'main/admin.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-6">
+          <h3>Liste des Penalites</h3>
+        </div>
+        <div class="col-6">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
+            <li class="breadcrumb-item">Apps</li>
+            <li class="breadcrumb-item active">Etapes</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid">
+    <div class=row>
+        
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-block row">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table header-border table-responsive-sm mypagination"  nb="35">
+                              <thead>
+                                <tr>        
+                                  <th> Etape </th>
+                                  <th> Equipe </th>
+                                  <th> Temps de penalite </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td >j</td>
+                                  <td >r</td>
+                                  <td >a</td>
+                                  <td><button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Supprimer</button></td>
+                                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h3 class="modal-title">Suppression de penalite</h3>
+                                          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Voulez-vous le supprimer?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Oui</button>
+                                          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Non</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <a class="btn btn-info" href="/add-penalite">Ajouter penalite</a>
+    </div>
+  </div>
+
+
+{% endblock %}  

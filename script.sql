@@ -355,6 +355,7 @@ create or replace view result_final_point aS (
 create or replace view classement_equipe as (
     select
     ROW_NUMBER() OVER (ORDER BY vu.point) AS rang,
+    DENSE_RANK() OVER (PARTITION BY vu.idetape,vu.idcategorie ORDER BY vu.point desc) as laharana,
     vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point
     from (
     select r.idetape,r.idcategorie,r.idequipe,sum(point) as point
@@ -411,3 +412,14 @@ where (vu.age<= c.maxage and vu.age>minage) and (vu.genre = c.sexe or c.sexe is 
 select * from v_catego_coureur v 
 left join categorie_coureur c on c.idcoureur = v.idcoureur and c.idcategorie = v.idcategorie
 where c.idcategorie_coureur is null;
+
+-- iyoijui
+
+create or replace view champion as (
+select
+ROW_NUMBER() OVER (ORDER BY c.point) as id,
+c.idcategorie,c.idequipe,ca.nom,c.nomequipe,c.point
+from classement_equipe c
+join categorie ca on ca.idcategorie = c.idcategorie 
+where c.idetape = 0 and c.laharana = 1
+);

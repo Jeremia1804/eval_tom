@@ -1,6 +1,8 @@
-
-create view v_impetape as (
+-- ovaina itoooooo
+create or replace view v_impetape as (
 select i.etape, i.rang, i.nb_coureur, i.longueur, date_depart + heure_depart AS debut from import_etape i
+left join etape e on e.rang = i.rang
+where e.idetape is null
 );
 
 insert into etape (nom,rang,nombre_coureur,longueur,debut) select * from v_impetape;
