@@ -4,6 +4,7 @@ from projet.db import db
 from projet.models.import_modele import ImportEtapeModel, ImportResultModel
 from projet.models.point import PointModel
 from sqlalchemy import text
+from projet.services.init_data import delete_all_data
 
 def upload(file):
     filename = file.filename
@@ -13,13 +14,14 @@ def upload(file):
 
 def lire_file(fichier):
     donnees = []
-    with open(fichier, 'r') as csvfile:
+    with open(fichier, 'r', encoding='utf-8-sig') as csvfile:
         csv_reader = csv.DictReader(csvfile)
         for row in csv_reader:
             donnees.append(row)
     return donnees
 
 def importer_point(fichier):
+    delete_all_data(PointModel)
     donnees = lire_file(fichier)
     for donnee in donnees:
         classement = donnee['classement'].strip()
@@ -71,6 +73,7 @@ def insert_import_resultat(fichier):
         coureur.save_to_db()
 
 def importer_etape_resultat(etape,resultat):
+    delete_all_data(ImportEtapeModel,ImportResultModel)
     insert_import_etape(etape)
     insert_import_resultat(resultat)
     db.session.commit()
