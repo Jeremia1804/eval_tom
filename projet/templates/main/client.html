@@ -81,9 +81,9 @@
               </li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
                 <div class="d-flex profile-media"><img class="b-r-50" src="static/images/dashboard/profile.png" alt="">
-                  <div class="flex-grow-1"><span>Helen Walter</span>
-                    <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
-                  </div>
+                  <div class="flex-grow-1"><span>Eval</span>
+                    <p class="mb-0 font-roboto">.... <i class="middle fa fa-angle-down"></i></p>
+                </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
                   <li><a href="user-profile.html"><i data-feather="user"></i><span>Account </span></a></li>
@@ -142,10 +142,10 @@
                 </li>
                 </ul>
                 <div class="sidebar-img-section">
-                  <div class="sidebar-img-content"><img class="img-fluid" src="static/images/dashboard/upgrade/2.png" alt="">
-                    <h4>Experiance with more Features</h4><a class="btn btn-primary" href="https://themeforest.net/user/pixelstrap/portfolio" target="_blank">Check now</a>
+                  <div class="sidebar-img-content"><img class="img-fluid" src="{{ url_for('static', filename='images/dashboard/upgrade/2.png') }}" alt="">
+                      <h4>Clean all your data</h4><a class="btn btn-primary" href="/delete-all" >Clean data</a>
                   </div>
-                </div>
+              </div>
               </div>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
             </nav>

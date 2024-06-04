@@ -4,6 +4,7 @@ from projet.models.categorie import CategorieModel
 from projet.models.classement import Classement_coureur, Classement_equipe
 from projet.models.coureur import CoureurModel
 from projet.models.etape import EtapeModel
+from projet.services.init_data import delete_all_data
 
 
 @app.route('/login-admin', methods = ['GET'])
@@ -53,3 +54,12 @@ def import_first():
 @app.route('/import-second', methods =['GET'])
 def import_second():
     return render_template("admin/import-second.html")
+
+@app.route('/generer-categorie', methods =['GET'])
+def generer_categorie():
+    return {'message': 'generer-na'}
+
+@app.route('/delete-all', methods =['GET'])
+def delete_all():
+    delete_all_data()
+    return {'message': 'fafa-na'}
