@@ -91,17 +91,3 @@ def add_penalite():
     all_etapes = EtapeModel.find_all()
     all_equipe = EquipeModel.find_all()
     return render_template("admin/ajout-penalite.html",etape=all_etapes,equipe=all_equipe)
-
-@app.route('/insert-penalite', methods =['POST'])
-def insert_penalite():
-    etape_id = request.form.get('idetape')
-    equipe_id = request.form.get('idequipe')
-    penalite = request.form.get('penalite')
-    return redirect(url_for('list_penalite'))
-
-@app.route('/delete-penalite', methods =['POST'])
-def delete_penalite():
-    # pass
-    penalty_id = request.json.get('id')
-    # penalties = [penalty for penalty in penalties if penalty['id'] != penalty_id]
-    return jsonify({'status': 'success', 'data': penalty_id})

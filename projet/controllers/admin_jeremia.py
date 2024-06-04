@@ -25,11 +25,11 @@ def import_etape_resultat():
     importer_etape_resultat(filename_etape,filename_resultat)
     return render_template("admin/classement-equipe.html")
 
-@app.route('/add-penalite', methods = ['POST'])
-def add_penalite():
+@app.route('/penalite', methods = ['POST'])
+def insert_penalite():
     idetape = request.form.get('idetape')
     idequipe = request.form.get('idequipe')
-    chrono = request.form.get('chrono')
+    chrono = request.form.get('penalite')
     penaliser(idequipe, idetape,chrono)
     return "cool", 200
 
