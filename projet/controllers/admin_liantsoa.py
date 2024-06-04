@@ -9,6 +9,8 @@ from projet.models.etape_coureur import Etape_coureurModel
 from projet.models.participation import ParticipationModel
 from projet.models.point import PointModel
 from projet.services.init_data import delete_all_data
+from projet.models.categorie_coureur import Categorie_coureurModel
+from projet.services.service_resultat import genererCategorie
 
 
 @app.route('/login-admin', methods = ['GET'])
@@ -61,9 +63,10 @@ def import_second():
 
 @app.route('/generer-categorie', methods =['GET'])
 def generer_categorie():
+    genererCategorie()
     return {'message': 'generer-na'}
 
 @app.route('/delete-all', methods =['GET'])
 def delete_all():
-    delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,EtapeModel,CoureurModel,CategorieModel,EquipeModel)
+    delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,Categorie_coureurModel,EtapeModel,CoureurModel,EquipeModel)
     return {'message': 'fafa-na'}
