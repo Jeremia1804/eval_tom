@@ -34,20 +34,20 @@
       <div class="card-block row">
         <div class="col-sm-12 col-lg-12 col-xl-12">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="result-table">
               <thead class="table-dark">
-                <tr>
-                  <th scope="col">Equipe</th>
-                  <th scope="col">Point</th>
-                </tr>
+                  <tr>
+                      <th scope="col">Equipe</th>
+                      <th scope="col">Point</th>
+                  </tr>
               </thead>
               <tbody>
-                {% for u in cl:%}
-                <tr>
-                  <th scope="row">{{u.nomequipe}}</th>
-                  <td>{{u.point}}</td>
-                </tr>
-                {%endfor%}
+                  {% for u in cl %}
+                  <tr>
+                      <th scope="row">{{ u.nomequipe }}</th>
+                      <td>{{ u.point }}</td>
+                  </tr>
+                  {% endfor %}
               </tbody>
             </table>
           </div>
@@ -57,3 +57,8 @@
   </div>
 
 {% endblock %}  
+
+{% block js%}
+<script src="/static/js/filter.js" type="text/javascript"></script>
+<script src="/static/js/filter-equipe.js" type="text/javascript"></script>
+{%endblock%}
