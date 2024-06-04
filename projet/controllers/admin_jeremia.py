@@ -9,7 +9,7 @@ def import_point():
     file = request.files['fichier']
     filename = upload(file)
     importer_point(filename)
-    return 'milamina ee', 200
+    return render_template("admin/classement-equipe.html")
 
 
 @app.route('/import-etape-resultat', methods = ['POST'])
@@ -21,4 +21,4 @@ def import_etape_resultat():
     filename_etape = upload(file_etape)
     filename_resultat = upload(file_resultat)
     importer_etape_resultat(filename_etape,filename_resultat)
-    return 'milamina ee', 200
+    return render_template("admin/classement-equipe.html")
