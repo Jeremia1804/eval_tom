@@ -321,10 +321,36 @@ group by r.idcategorie,r.idcoureur,r.idequipe
 ) vu1
 );
 
-create or replace view result_final_point aS (
-    select r.*,case when p.classement is null then 0 else p.valeur end as point from result_final r
+
+-- voloany
+
+create or replace view result_final_point_last aS (
+    select r.*,case when p.classement is null then 0 else p.valeur end as point from result_fin r
     left join point p on p.classement = r.rang
 );
+
+
+create or replace view result_final_point aS (
+    select * from result_final_point_last r
+    union
+    select * from (
+    select
+    DENSE_RANK() OVER (PARTITION BY vu.idcategorie ORDER BY vu.point DESC) AS rang,
+    vu.idetape,
+    vu.idcategorie,
+    vu.idcoureur,
+    vu.idequipe,
+    vu.duree_seconde,
+    vu.duree_formatted,
+    vu.point
+    from (
+    select 0 as idetape, rl.idcoureur, rl.idequipe,rl.idcategorie, sum(rl.duree_seconde) as duree_seconde, sum(rl.duree_formatted) as duree_formatted, sum(rl.point) as point from result_final_point_last rl 
+    group by rl.idcoureur, rl.idequipe,rl.idcategorie
+    ) vu
+    ) quoi
+);
+
+-- farany
 
 create or replace view classement_equipe as (
     select
