@@ -64,9 +64,9 @@ def import_second():
 @app.route('/generer-categorie', methods =['GET'])
 def generer_categorie():
     genererCategorie()
-    return {'message': 'generer-na'}
+    return redirect(url_for('classment_etape'))
 
 @app.route('/delete-all', methods =['GET'])
 def delete_all():
     delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,Categorie_coureurModel,EtapeModel,CoureurModel,EquipeModel)
-    return {'message': 'fafa-na'}
+    return redirect(url_for('liste_etape2'))
