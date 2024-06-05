@@ -56,7 +56,11 @@ def classment_etape(id = 0):
 @app.route('/detail/<int:id>' , methods = ['GET'])
 def detail(id):
     col  = getattr(Classement_coureur,'rang')
-    cl = Classement_coureur.query.filter_by(idetape=0,idcategorie=0, idequipe=id).order_by(col.asc()).all()
+    cl = Classement_coureur.query.filter(
+        Classement_coureur.idetape!=0,
+            Classement_coureur.idcategorie == 0,
+            Classement_coureur.idequipe == id
+    ).order_by(col.asc()).all()
     return render_template("admin/detail.html",cl=cl)
 
 

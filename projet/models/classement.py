@@ -1,4 +1,5 @@
 from projet.db import db
+from projet.models.etape import EtapeModel
 
 class Classement_equipe(db.Model):
     __tablename__ = 'classement_equipe'
@@ -26,6 +27,8 @@ class Classement_equipe(db.Model):
         if self.isany > 1:
             return 'red'
         return ''
+    
+   
 
 
 class Classement_coureur(db.Model):
@@ -33,7 +36,7 @@ class Classement_coureur(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     rang = db.Column(db.Integer)
-    idetape = db.Column(db.Integer)
+    idetape = db.Column(db.Integer,  db.ForeignKey('etape.idetape'))
     idcategorie = db.Column(db.Integer)
     idequipe = db.Column(db.Integer)
     idcoureur = db.Column(db.Integer, db.ForeignKey('coureur.idcoureur'))
@@ -47,6 +50,7 @@ class Classement_coureur(db.Model):
     point = db.Column(db.Float)
 
     coureur  = db.relationship('CoureurModel')
+    etapes = db.relationship('EtapeModel')
 
     def json(self):
         duree_formatted = str(self.duree_formatted) if self.duree_formatted else ""
@@ -61,3 +65,4 @@ class Classement_coureur(db.Model):
             'point': self.point,
             'new_duree_formatted':str(self.new_duree_formatted)
         }
+
