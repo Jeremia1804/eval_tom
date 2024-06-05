@@ -279,14 +279,20 @@ create or replace view result_fin as (
 select  * from (
 select
 DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY (r.duree_seconde+r.penalite)) AS rang,
-r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted, r.penalite from resultat r
+r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted, r.penalite,
+r.duree_seconde+r.penalite as new_duree_sec,
+(TO_CHAR((interval '1 second' * r.penalite), 'HH24:MI:SS')) as pen_formatted
+from resultat r
 join categorie_coureur c on r.idcoureur = c.idcoureur
 join coureur co on co.idcoureur = r.idcoureur
 ) vu
 union select * from (
 select
 DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY (r.duree_seconde+r.penalite)) AS rang,
-r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted,r.penalite from resultat r
+r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted,r.penalite,
+r.duree_seconde+r.penalite as new_duree_sec,
+(TO_CHAR((interval '1 second' * r.penalite), 'HH24:MI:SS')) as pen_formatted
+from resultat r
 join coureur co on co.idcoureur = r.idcoureur
 ) as vu1
 );
@@ -294,8 +300,8 @@ join coureur co on co.idcoureur = r.idcoureur
 -- voloany
 
 create or replace view result_final_point_last aS (
-    select r.*,case when p.classement is null then 0 else p.valeur end as point from result_fin r
-    left join point p on p.classement = r.rang3
+    select r.*,(r.duree_formatted+r.pen_formatted) as new_duree_formatted,case when p.classement is null then 0 else p.valeur end as point from result_fin r
+    left join point p on p.classement = r.rang
 );
 
 
@@ -311,9 +317,17 @@ create or replace view result_final_point aS (
     vu.idequipe,
     vu.duree_seconde,
     vu.duree_formatted,
+    vu.penalite,
+    vu.pen_formatted,
+    vu.new_duree_sec,
+    vu.new_duree_formatted,
     vu.point
     from (
-    select 0 as idetape, rl.idcoureur, rl.idequipe,rl.idcategorie, sum(rl.duree_seconde) as duree_seconde, sum(rl.duree_formatted) as duree_formatted, sum(rl.point) as point from result_final_point_last rl 
+    select 0 as idetape, rl.idcoureur, rl.idequipe,rl.idcategorie, sum(rl.duree_seconde) as duree_seconde, sum(rl.duree_formatted) as duree_formatted,
+    sum(rl.penalite) as penalite,
+    sum(rl.pen_formatted) as pen_formatted,
+    sum(rl.new_duree_sec) as new_duree_sec,
+    sum(new_duree_formatted) as new_duree_formatted, sum(rl.point) as point from result_final_point_last rl 
     group by rl.idcoureur, rl.idequipe,rl.idcategorie
     ) vu
     ) quoi
@@ -348,6 +362,8 @@ create or replace view classement_coureur as (
     e.nom as nomequipe,
     r.duree_formatted,
     r.duree_seconde,
+    r.new_duree_formatted,
+    r.new_duree_sec,
     r.point
     from result_final_point r
     join coureur c on c.idcoureur = r.idcoureur
@@ -462,4 +478,132 @@ create or replace view v_pen_coureur as (
 select p.idetape,c.idcoureur,sum(p.penalite) as penalite from coureur c 
 join penalite p on c.idequipe = p.idequipe 
 group by p.idetape,c.idcoureur
+);
+
+
+-- ty atao zalah pour le mise a jour aa
+create or replace view v_sum_pen_equipe as (
+select p.idetape,p.idequipe,sum(p.penalite) as penalite from penalite p
+group by p.idetape,p.idequipe
+);
+
+
+
+drop view champion;
+drop view classement_equipe;
+drop view classement_coureur;
+drop view result_final_point;
+drop view result_final_point_last;
+drop view result_fin;
+
+create or replace view result_fin as (
+SELECT * FROM (
+        SELECT
+            DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY (r.duree_seconde + r.penalite)) AS rang,
+            r.idetape,
+            c.idcategorie,
+            r.idcoureur,
+            co.idequipe,
+            r.duree_seconde,
+            (interval '1 second' * r.duree_seconde) AS duree_formatted,
+            r.penalite,
+            (interval '1 second' * r.penalite) AS pen_formatted,
+            r.duree_seconde + r.penalite AS new_duree_sec
+        FROM resultat r
+        JOIN categorie_coureur c ON r.idcoureur = c.idcoureur
+        JOIN coureur co ON co.idcoureur = r.idcoureur
+    ) vu
+    UNION
+    SELECT * FROM (
+        SELECT
+            DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY (r.duree_seconde + r.penalite)) AS rang,
+            r.idetape,
+            0 AS idcategorie,
+            r.idcoureur,
+            co.idequipe,
+            r.duree_seconde,
+            (interval '1 second' * r.duree_seconde) AS duree_formatted,
+            r.penalite,
+            (interval '1 second' * r.penalite) AS pen_formatted,
+            r.duree_seconde + r.penalite AS new_duree_sec
+        FROM resultat r
+        JOIN coureur co ON co.idcoureur = r.idcoureur
+    ) vu1
+);
+
+
+create or replace view result_final_point_last aS (
+    select r.*,(r.duree_formatted+r.pen_formatted) as new_duree_formatted,case when p.classement is null then 0 else p.valeur end as point from result_fin r
+    left join point p on p.classement = r.rang
+);
+
+create or replace view result_final_point aS (
+    select * from result_final_point_last r
+    union
+    select * from (
+    select
+    DENSE_RANK() OVER (PARTITION BY vu.idcategorie ORDER BY vu.point DESC) AS rang,
+    vu.idetape,
+    vu.idcategorie,
+    vu.idcoureur,
+    vu.idequipe,
+    vu.duree_seconde,
+    vu.duree_formatted,
+    vu.penalite,
+    vu.pen_formatted,
+    vu.new_duree_sec,
+    vu.new_duree_formatted,
+    vu.point
+    from (
+    select 0 as idetape, rl.idcoureur, rl.idequipe,rl.idcategorie, sum(rl.duree_seconde) as duree_seconde, sum(rl.duree_formatted) as duree_formatted,
+    sum(rl.penalite) as penalite,
+    sum(rl.pen_formatted) as pen_formatted,
+    sum(rl.new_duree_sec) as new_duree_sec,
+    sum(new_duree_formatted) as new_duree_formatted, sum(rl.point) as point from result_final_point_last rl 
+    group by rl.idcoureur, rl.idequipe,rl.idcategorie
+    ) vu
+    ) quoi
+);
+
+create or replace view classement_equipe as (
+    select
+    ROW_NUMBER() OVER (ORDER BY vu.point) AS rang,
+    DENSE_RANK() OVER (PARTITION BY vu.idetape,vu.idcategorie ORDER BY vu.point desc) as laharana,
+    vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point
+    from (
+    select r.idetape,r.idcategorie,r.idequipe,sum(point) as point
+    from result_final_point r
+    group by r.idetape,r.idcategorie,r.idequipe ) vu
+    join equipe e on e.idequipe = vu.idequipe
+);
+
+create or replace view classement_coureur as (
+    select
+    ROW_NUMBER() OVER (ORDER BY r.point) AS id,
+    r.rang,
+    r.idetape,
+    r.idcategorie,
+    r.idequipe,
+    c.idcoureur,
+    c.nom,
+    c.numero,
+    e.nom as nomequipe,
+    r.duree_formatted,
+    r.duree_seconde,
+    r.new_duree_formatted,
+    r.pen_formatted,
+    r.new_duree_sec,
+    r.point
+    from result_final_point r
+    join coureur c on c.idcoureur = r.idcoureur
+    join equipe e on e.idequipe = r.idequipe
+);
+
+create or replace view champion as (
+select
+ROW_NUMBER() OVER (ORDER BY c.point) as id,
+c.idcategorie,c.idequipe,ca.nom,c.nomequipe,c.point
+from classement_equipe c
+join categorie ca on ca.idcategorie = c.idcategorie 
+where c.idetape = 0 and c.laharana = 1
 );

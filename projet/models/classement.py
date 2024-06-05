@@ -30,6 +30,7 @@ class Classement_coureur(db.Model):
     numero = db.Column(db.Integer)
     nomequipe = db.Column(db.String)
     duree_formatted = db.Column(db.String)
+    pen_formatted = db.Column(db.String)
     duree_seconde = db.Column(db.String)
     point = db.Column(db.Float)
 
@@ -41,6 +42,7 @@ class Classement_coureur(db.Model):
             'numero': self.numero,
             'nomequipe': self.nomequipe,
             'duree_formatted': duree_formatted,
+            'pen_formatted': str(self.pen_formatted),
             'point': self.point,
         }
 

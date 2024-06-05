@@ -15,6 +15,7 @@ $(document).ready(function() {
                           + '<td>' + equipe.numero + '</td>'
                           + '<td>' + equipe.nomequipe + '</td>'
                           + '<td>' + equipe.duree_formatted + '</td>'
+                          + '<td>' + equipe.pen_formatted + '</td>'
                           + '<td>' + equipe.point + '</td>'
                           + '</tr>';
                 });

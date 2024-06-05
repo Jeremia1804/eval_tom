@@ -1,7 +1,7 @@
 from io import BytesIO
 from flask import render_template
 from xhtml2pdf import pisa
-# import docraptor
+import docraptor
 
 from projet.models.champion import Champion
 
