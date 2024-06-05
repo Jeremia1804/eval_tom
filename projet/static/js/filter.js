@@ -12,7 +12,7 @@ $(document).ready(function() {
                     rows += '<tr>'
                           + '<td>' + equipe.rang + '</td>'
                           + '<td>' + equipe.nom + '</td>'
-                          + '<td>' + equipe.numero + '</td>'
+                          + '<td>' + equipe.genre + '</td>'
                           + '<td>' + equipe.nomequipe + '</td>'
                           + '<td>' + equipe.duree_formatted + '</td>'
                           + '<td>' + equipe.pen_formatted + '</td>'

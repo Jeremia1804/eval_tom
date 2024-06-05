@@ -21,6 +21,7 @@ $(document).ready(function() {
                     rows += '<tr>'
                           + '<td>' + equipe.nomequipe + '</td>'
                           + '<td>' + equipe.point + '</td>'
+                          + '<td>' + equipe.penalite_formatted + '</td>'
                           + '</tr>';
                 });
                 $('#result-table tbody').html(rows);

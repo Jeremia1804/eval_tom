@@ -21,7 +21,7 @@
            
               <select class="form-select digits annee" id="etape"  name="idetape">
                 {% for e in etape:%}
-                  <option value={{e.idetape}}>{{e.nom}}</option>
+                  <option value={{e.idetape}}>{{e.rang}} - {{e.nom}}</option>
                 {% endfor%}
               </select>
             </label>

@@ -483,8 +483,10 @@ group by p.idetape,c.idcoureur
 
 -- ty atao zalah pour le mise a jour aa
 create or replace view v_sum_pen_equipe as (
+select vu.*,(interval '1 second' * vu.penalite) AS penalite_formatted from (
 select p.idetape,p.idequipe,sum(p.penalite) as penalite from penalite p
 group by p.idetape,p.idequipe
+) vu
 );
 
 
@@ -569,12 +571,15 @@ create or replace view classement_equipe as (
     select
     ROW_NUMBER() OVER (ORDER BY vu.point) AS rang,
     DENSE_RANK() OVER (PARTITION BY vu.idetape,vu.idcategorie ORDER BY vu.point desc) as laharana,
-    vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point
+    vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point,
+    case when s.penalite is null then 0 else s.penalite end as penalite,
+    case when s.penalite is null then '00:00:00' else s.penalite_formatted end as penalite_formatted
     from (
     select r.idetape,r.idcategorie,r.idequipe,sum(point) as point
     from result_final_point r
     group by r.idetape,r.idcategorie,r.idequipe ) vu
-    join equipe e on e.idequipe = vu.idequipe
+    join equipe e on e.idequipe = vu.idequipe 
+    left join v_sum_pen_equipe_final s on s.idetape  = vu.idetape and s.idequipe = e.idequipe
 );
 
 create or replace view classement_coureur as (
@@ -608,4 +613,34 @@ c.nomequipe,c.point
 from classement_equipe c
 left join categorie ca on ca.idcategorie = c.idcategorie 
 where c.idetape = 0 and c.laharana = 1
+);
+
+--- ito Tom aa
+create or replace view v_sum_pen_equipe as (
+select vu.*,(interval '1 second' * vu.penalite) AS penalite_formatted from (
+select p.idetape,p.idequipe,sum(p.penalite) as penalite from penalite p
+group by p.idetape,p.idequipe
+) vu
+);
+
+create or replace view v_sum_pen_equipe_final as (
+    select * from v_sum_pen_equipe
+    union
+    select 0 as idetape,idequipe,sum(penalite) as penalite, sum(penalite_formatted) as penalite_formatted from v_sum_pen_equipe
+    group by idequipe
+);
+
+create or replace view classement_equipe as (
+    select
+    ROW_NUMBER() OVER (ORDER BY vu.point) AS rang,
+    DENSE_RANK() OVER (PARTITION BY vu.idetape,vu.idcategorie ORDER BY vu.point desc) as laharana,
+    vu.idetape, vu.idcategorie, vu.idequipe, e.nom as nomequipe, vu.point,
+    case when s.penalite is null then 0 else s.penalite end as penalite,
+    case when s.penalite is null then '00:00:00' else s.penalite_formatted end as penalite_formatted
+    from (
+    select r.idetape,r.idcategorie,r.idequipe,sum(point) as point
+    from result_final_point r
+    group by r.idetape,r.idcategorie,r.idequipe ) vu
+    join equipe e on e.idequipe = vu.idequipe 
+    left join v_sum_pen_equipe_final s on s.idetape  = vu.idetape and s.idequipe = e.idequipe
 );

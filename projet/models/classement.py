@@ -9,11 +9,15 @@ class Classement_equipe(db.Model):
     idequipe = db.Column(db.Integer)
     nomequipe = db.Column(db.String)
     point = db.Column(db.Float)
+    penalite = db.Column(db.String)
+    penalite_formatted = db.Column(db.String)
 
     def json(self):
         return {
             'nomequipe': self.nomequipe,
             'point': self.point,
+            'penalite':self.penalite,
+            'penalite_formatted':str(self.penalite_formatted)
         }
 
 
@@ -43,6 +47,7 @@ class Classement_coureur(db.Model):
             'rang': self.rang,
             'nom': self.nom,
             'numero': self.numero,
+            'genre':self.coureur.genre,
             'nomequipe': self.nomequipe,
             'duree_formatted': duree_formatted,
             'pen_formatted': str(self.pen_formatted),

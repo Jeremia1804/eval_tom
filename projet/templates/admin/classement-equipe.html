@@ -40,6 +40,7 @@
                   <tr>
                       <th scope="col">Equipe</th>
                       <th scope="col">Point</th>
+                      <th scope="col">Penalite</th>
                   </tr>
               </thead>
               <tbody>
@@ -47,6 +48,7 @@
                   <tr>
                       <th scope="row">{{ u.nomequipe }}</th>
                       <td>{{ u.point }}</td>
+                      <td>{{ u.penalite_formatted }}</td>
                   </tr>
                   {% endfor %}
               </tbody>
