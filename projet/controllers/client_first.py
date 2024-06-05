@@ -13,7 +13,7 @@ def form_etape_coureur(id):
     idcoureurs = set(request.form.getlist('idcoureur'))
     idcoureurs = [int(idcoureur) for idcoureur in idcoureurs]
     add_etape_coureurs(idetape, idcoureurs)
-    return redirect(url_for('liste_etape'))
+    return {'message':'Good'}, 200
 
 @app.route('/resultat-etape', methods = ['POST'])
 def form_resultat_etape():

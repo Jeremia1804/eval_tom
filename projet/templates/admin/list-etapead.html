@@ -33,6 +33,7 @@
                                   <th> Rang </th>
                                   <th> Nombre de coureur </th>
                                   <th> Longueur</th>
+                                  <th> Resultat</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -42,6 +43,7 @@
                                   <td >{{e.rang}}</td>
                                   <td >{{e.nombre_coureur}}</td>
                                   <td >{{e.longueur}}</td>
+                                  <td ><a class="btn btn-primary" href="/classement-etape-ad/{{e.idetape}}">Voir details</a></td>
                                 </tr>
                                 {% endfor%}
                               </tbody>

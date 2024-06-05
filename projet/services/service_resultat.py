@@ -6,6 +6,9 @@ from sqlalchemy import text
 def add_resultat_etape(idetape,idcoureur,heure):
     idetape = int(idetape)
     idcoureur = int(idcoureur)
+    h = heure.split('T')[1].split(':')
+    if len(h) == 2:
+        heure = heure + ':00'
     heure = datetime.strptime(heure, '%Y-%m-%dT%H:%M:%S')
     mod = ParticipationModel(idetape, idcoureur, heure)
     mod.save_to_db()

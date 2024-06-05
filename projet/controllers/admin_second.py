@@ -43,12 +43,14 @@ def classment_eq():
     cl = Classement_equipe.query.filter_by(idetape=0,idcategorie=0).order_by(col.desc()).all()
     return render_template("admin/classement-equipe.html",etape=all_etapes,cate=all_cate,cl=cl)
 
-@app.route('/classement-etape-ad' , methods = ['GET'])
-def classment_etape():
+@app.route('/classement-etape-ad/<int:id>' , methods = ['GET'])
+def classment_etape(id = 0):
     all_etapes = EtapeModel.find_all()
+    for a in all_etapes:
+        a.setMe(id)
     all_cate = CategorieModel.find_all()
     col  = getattr(Classement_coureur,'rang')
-    cl = Classement_coureur.query.filter_by(idetape=0,idcategorie=0).order_by(col.asc()).all()
+    cl = Classement_coureur.query.filter_by(idetape=id,idcategorie=0).order_by(col.asc()).all()
     return render_template("admin/classement-etape.html",etape=all_etapes,cate=all_cate,cl=cl)
 
 @app.route('/admin-home' , methods = ['GET','POST'])

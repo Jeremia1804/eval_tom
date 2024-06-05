@@ -16,4 +16,4 @@ def page_not_found(e):
 
 @app.errorhandler(Exception)
 def exception_handler(error):
-    return "error: "  + repr(error), 500
+    return {'error':str(error)}, 500

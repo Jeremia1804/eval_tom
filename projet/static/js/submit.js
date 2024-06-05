@@ -1,18 +1,18 @@
 $(document).ready(function() {
-    $('#paiement').submit(function(event) {
+    $('#formulaire').submit(function(event) {
         event.preventDefault();
 
         var formData = new FormData($(this)[0]);
-
+        var idetape = document.getElementById('myetape').value
         $.ajax({
-            url: '/payer-devis',
+            url: '/etape-coureur/'+idetape,
             type: 'POST',
             dataType: 'json',
             processData: false,
             contentType:false,
             data: formData,
             success: function(response) {
-                swal("Hey, Good job !!", response.message, "success")
+                swal("GG", "Ajout reussi !!", "success")
             },
             error: function(xhr, status, error) {
                 sweetAlert("Oops...", xhr.responseJSON.error, "error")

@@ -25,14 +25,17 @@ class Classement_coureur(db.Model):
     idetape = db.Column(db.Integer)
     idcategorie = db.Column(db.Integer)
     idequipe = db.Column(db.Integer)
-    idcoureur = db.Column(db.Integer)
+    idcoureur = db.Column(db.Integer, db.ForeignKey('coureur.idcoureur'))
     nom = db.Column(db.String)
     numero = db.Column(db.Integer)
     nomequipe = db.Column(db.String)
     duree_formatted = db.Column(db.String)
     pen_formatted = db.Column(db.String)
+    new_duree_formatted = db.Column(db.String)
     duree_seconde = db.Column(db.String)
     point = db.Column(db.Float)
+
+    coureur  = db.relationship('CoureurModel')
 
     def json(self):
         duree_formatted = str(self.duree_formatted) if self.duree_formatted else ""
@@ -44,5 +47,6 @@ class Classement_coureur(db.Model):
             'duree_formatted': duree_formatted,
             'pen_formatted': str(self.pen_formatted),
             'point': self.point,
+            'new_duree_formatted':str(self.new_duree_formatted)
         }
 

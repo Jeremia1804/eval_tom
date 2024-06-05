@@ -18,7 +18,7 @@
           <select class="form-select digits annee" id="etape" name="etape"> 
             <option value="0">Toute etape</option>
             {% for re in etape:%}
-            <option value={{re.idetape}}>{{re.nom}}</option>
+            <option value={{re.idetape}} {{re.isMe()}}>{{re.nom}}</option>
             {%endfor%}
           </select>
         </div>
@@ -39,10 +39,11 @@
                 <tr>
                   <th scope="col">Rang</th>
                   <th scope="col">Coureur</th>
-                  <th scope="col">Numero</th>
+                  <th scope="col">Genre</th>
                   <th scope="col">Equipe</th>
                   <th scope="col">Chrono</th>
                   <th scope="col">penalite</th>
+                  <th scope="col">Temps final</th>
                   <th scope="col">Points</th>
                 </tr>
               </thead>
@@ -51,10 +52,11 @@
                 <tr>
                   <th scope="row">{{l.rang}}</th>
                   <td>{{l.nom}}</td>
-                  <td>{{l.numero}}</td>
+                  <td>{{l.coureur.genre}}</td>
                   <td>{{l.nomequipe}}</td>
                   <td>{{l.duree_formatted}}</td>
                   <td>{{l.pen_formatted}}</td>
+                  <td>{{l.new_duree_formatted}}</td>
                   <td>{{l.point}}</td>
                 </tr>
                 {%endfor%}

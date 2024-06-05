@@ -29,6 +29,16 @@ class EtapeModel(db.Model):
             'longueur':self.longueur,
             'debut':self.debut.isoformat() if self.debut else None
         }
+    
+    def isMe(self):
+        return self.select
+
+    def setMe(self,id):
+        if self.idetape == id:
+            self.select = "selected"
+        else:
+            self.select = ""
+        
 
     @classmethod
     def find_by_id(cls, id):

@@ -602,8 +602,10 @@ create or replace view classement_coureur as (
 create or replace view champion as (
 select
 ROW_NUMBER() OVER (ORDER BY c.point) as id,
-c.idcategorie,c.idequipe,ca.nom,c.nomequipe,c.point
+c.idcategorie,c.idequipe,
+case when ca.nom is null then 'Toute categorie' else ca.nom end as nom,
+c.nomequipe,c.point
 from classement_equipe c
-join categorie ca on ca.idcategorie = c.idcategorie 
+left join categorie ca on ca.idcategorie = c.idcategorie 
 where c.idetape = 0 and c.laharana = 1
 );
