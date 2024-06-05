@@ -416,8 +416,9 @@ create or replace view v_penalite as (
 );
 
 create view v_pen_coureur as (
-select p.idetape,c.idcoureur,p.penalite from coureur c 
+select p.idetape,c.idcoureur,sum(p.penalite) as penalite from coureur c 
 join penalite p on c.idequipe = p.idequipe 
+group by p.idetape,c.idcoureur
 );
 
 create or replace view resultat as (
@@ -452,4 +453,13 @@ DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY (r.duree_seconde+r.penalite))
 r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted,r.penalite from resultat r
 join coureur co on co.idcoureur = r.idcoureur
 ) as vu1
+);
+
+
+-- ty zalah avereno alefa aloha aa
+
+create or replace view v_pen_coureur as (
+select p.idetape,c.idcoureur,sum(p.penalite) as penalite from coureur c 
+join penalite p on c.idequipe = p.idequipe 
+group by p.idetape,c.idcoureur
 );
