@@ -1,102 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marathon Champion Certificate</title>
-<style>
-    @page {
-        size: A4 landscape;
-        margin: 1cm;
-    }
-    body {
-        font-family: Arial, sans-serif;
-        border: 10px solid #A21E1E;
-        padding: 20px;
-        text-align: center;
-    }
-    .header, .content, .details, .signature {
-        margin-bottom: 20px;
-    }
-    .header {
-        width: 100%;
-        display: inline-block;
-    }
-    .header img {
-        float: right;
-        width: 80px;
-    }
-    .header h1 {
-        color: #A21E1E;
-        font-size: 48px;
-        margin: 0;
-    }
-    .content h2, .content h3 {
-        color: #A21E1E;
-        margin: 0;
-    }
-    .content h2 {
-        font-size: 36px;
-    }
-    .content h3 {
-        font-size: 28px;
-    }
-    .content p {
-        font-size: 18px;
-    }
-    .winner {
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .details {
-        font-size: 18px;
-        width: 100%;
-        display: inline-block;
-    }
-    .details div {
-        float: left;
-        width: 45%;
-        text-align: left;
-        margin-left: 5%;
-    }
-    .details div p {
-        margin: 5px 0;
-    }
-    .signature {
-        text-align: center;
-        margin-top: 50px;
-    }
-    .signature span {
-        display: block;
-        border-top: 1px solid #000;
-        width: 200px;
-        margin: 0 auto;
-        text-align: center;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Certificat de Marathon</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 20mm;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            
+        }
+        .header {
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .subheader {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .content {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+        }
+        .medal {
+            width: 100px;
+        }
+        .details {
+            text-align: center;
+            flex-grow: 1;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .team-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            color: brown;
+        }
+        .points {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .date {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .signature {
+            font-size: 16px;
+            margin-top: 50px;
+            text-align: right;
+            margin-right: 40px;
+        }
+    </style>
 </head>
 <body>
+ 
+
     <div class="container">
-        <div class="header">
+        <img src="D:\eval\sary\logoako.png" alt="Logo Marathon" class="logo" >
+        {% for i in range (270): %}
+            &nbsp;
+        {% endfor %}
+        <img src="D:\eval\sary\medaille.png" alt="Photo Médaille" class="medal">
+        <div class="header" style="color: cornflowerblue;">CHAMPION CERTIFICATE</div>
+        <div class="header" style="font-size: 30px;">ULTIMATE TEAM RACE ({{categorie}})</div>
+        <div class="subheader">Félicitations à toute l'équipe pour cette performance remarquable lors de l'Ultimate Team Race.<br>
+            Ce certificat reconnaît vos efforts exceptionnels et votre dévouement dans la catégorie [Catégorie].
         </div>
         <div class="content">
-            <h2>Marathon Champion {{categorie}}</h2>
-            <h3>Certificate of Achievement</h3>
-            <p>This is to Certify that</p>
-            <p class="winner">{{equipe}}</p>
-            <p>has successfully completed the Marathon with outstanding performance.</p>
-            <p>We truly appreciate the hard work, persistence, and determination shown throughout the race.</p>
-        </div>
-        <div class="details">
-            <div>
-                <p><strong>Points:</strong>{{point}}</p>
-            </div>
-            <div>
-                <p><strong>Date:</strong> {{date}}</p>
+            <div class="details">
+                <div class="team-name">EQUIPE {{equipe}}</div>
+                <div class="points">Points de l'équipe: {{point}}</div>
+                <div class="date">Date: {{date}}</div>
             </div>
         </div>
         <div class="signature">
-            <span>Signature</span>
+            Signature: ______________________
         </div>
     </div>
 </body>

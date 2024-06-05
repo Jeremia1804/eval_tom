@@ -78,7 +78,7 @@ def export_pdf(id):
     resp = get_pdf(id)
     headers = {
         'content-type': 'application.pdf',
-        'content-disposition': 'attachment  ; filename=certificat.pdf'}
+        'content-disposition': 'inline  ; filename=certificat.pdf'}
     return resp, 200, headers
 
 
