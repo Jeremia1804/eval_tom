@@ -1,0 +1,56 @@
+{% extends 'main/admin.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12"> 
+    <div class="card">
+      <div class="row m-3">
+        <div class="col-sm-4">
+          <h3>Detail equipe</h3>
+        </div>
+      </div>
+      <div class="card-block row">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+          <div class="table-responsive">
+            <table class="table" id="result-table2">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Rang</th>
+                  <th scope="col">Coureur</th>
+                  <th scope="col">Genre</th>
+                  <th scope="col">Equipe</th>
+                  <th scope="col">Chrono</th>
+                  <th scope="col">penalite</th>
+                  <th scope="col">Temps final</th>
+                  <th scope="col">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for l in cl:%}
+                <tr>
+                  <th scope="row">{{l.rang}}</th>
+                  <td>{{l.nom}}</td>
+                  <td>{{l.coureur.genre}}</td>
+                  <td>{{l.nomequipe}}</td>
+                  <td>{{l.duree_formatted}}</td>
+                  <td>{{l.pen_formatted}}</td>
+                  <td>{{l.new_duree_formatted}}</td>
+                  <td>{{l.point}}</td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}  
+

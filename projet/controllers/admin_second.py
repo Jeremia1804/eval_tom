@@ -53,6 +53,13 @@ def classment_etape(id = 0):
     cl = Classement_coureur.query.filter_by(idetape=id,idcategorie=0).order_by(col.asc()).all()
     return render_template("admin/classement-etape.html",etape=all_etapes,cate=all_cate,cl=cl)
 
+@app.route('/detail/<int:id>' , methods = ['GET'])
+def detail(id):
+    col  = getattr(Classement_coureur,'rang')
+    cl = Classement_coureur.query.filter_by(idetape=0,idcategorie=0, idequipe=id).order_by(col.asc()).all()
+    return render_template("admin/detail.html",cl=cl)
+
+
 @app.route('/admin-home' , methods = ['GET','POST'])
 def admin_home():
     return redirect(url_for('liste_etape2'))

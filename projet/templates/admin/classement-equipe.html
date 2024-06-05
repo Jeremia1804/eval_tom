@@ -41,6 +41,7 @@
                       <th scope="col">Equipe</th>
                       <th scope="col">Point</th>
                       <th scope="col">Penalite</th>
+                      <th scope="col">Detail</th>
                   </tr>
               </thead>
               <tbody>
@@ -49,6 +50,7 @@
                       <th scope="row">{{ u.nomequipe }}</th>
                       <td>{{ u.point }}</td>
                       <td>{{ u.penalite_formatted }}</td>
+                      <td><a href="/detail/{{u.idequipe}}" class="btn btn-primary">detail</a></td>
                   </tr>
                   {% endfor %}
               </tbody>
