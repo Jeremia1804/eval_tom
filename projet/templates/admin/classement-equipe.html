@@ -45,7 +45,7 @@
               </thead>
               <tbody>
                   {% for u in cl %}
-                  <tr>
+                  <tr style="background-color: {{u.getCouleur()}};">
                       <th scope="row">{{ u.nomequipe }}</th>
                       <td>{{ u.point }}</td>
                       <td>{{ u.penalite_formatted }}</td>

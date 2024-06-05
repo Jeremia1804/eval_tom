@@ -18,6 +18,18 @@ def add_etape_coureurs(idetape, idcoureurs):
         db.session.commit()
     except Exception as e:
         raise e
+    
+def verifier(idetape):
+    idequipe = getMyId()
+    idetape = int(idetape)
+    mescoureurs = V_etape_coureurModel.query.filter_by(idetape=idetape,idequipe=idequipe).all()
+    etape = EtapeModel.find_by_id(idetape)
+    nombre_etape = etape.nombre_coureur
+    nombre_misy = len(mescoureurs)
+    reste = nombre_etape - nombre_misy
+    if reste <= 0:
+        raise Exception('Nombre limite, vous ne pouvez plus ajouter de coureur')
+    
 
 def add_etape_coureur(idetape,idcoureur):
     mod = Etape_coureurModel(idetape, idcoureur)

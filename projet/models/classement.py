@@ -11,14 +11,21 @@ class Classement_equipe(db.Model):
     point = db.Column(db.Float)
     penalite = db.Column(db.String)
     penalite_formatted = db.Column(db.String)
+    isany = db.Column(db.Integer)
 
     def json(self):
         return {
             'nomequipe': self.nomequipe,
             'point': self.point,
             'penalite':self.penalite,
-            'penalite_formatted':str(self.penalite_formatted)
+            'penalite_formatted':str(self.penalite_formatted),
+            'couleur':self.getCouleur()
         }
+    
+    def getCouleur(self):
+        if self.isany > 1:
+            return 'red'
+        return ''
 
 
 class Classement_coureur(db.Model):
@@ -54,4 +61,3 @@ class Classement_coureur(db.Model):
             'point': self.point,
             'new_duree_formatted':str(self.new_duree_formatted)
         }
-

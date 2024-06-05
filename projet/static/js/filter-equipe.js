@@ -18,7 +18,7 @@ $(document).ready(function() {
                     labels[i] = equipe.nomequipe;
                     datas[i] = equipe.point;
                     i++;
-                    rows += '<tr>'
+                    rows += '<tr style="background-color:'+equipe.couleur+'">'
                           + '<td>' + equipe.nomequipe + '</td>'
                           + '<td>' + equipe.point + '</td>'
                           + '<td>' + equipe.penalite_formatted + '</td>'
