@@ -7,6 +7,7 @@ from projet.models.equipe import EquipeModel
 from projet.models.etape import EtapeModel
 from projet.models.etape_coureur import Etape_coureurModel
 from projet.models.participation import ParticipationModel
+from projet.models.penalite import V_penalite
 from projet.models.point import PointModel
 from projet.services.export import get_pdf
 from projet.services.init_data import delete_all_data
@@ -84,7 +85,8 @@ def export_pdf(id):
 
 @app.route('/list-penalite', methods =['GET'])
 def list_penalite():
-    return render_template("admin/list-penalite.html")
+    penalites = V_penalite.query.all()
+    return render_template("admin/list-penalite.html", penalites = penalites)
 
 @app.route('/add-penalite', methods =['GET'])
 def add_penalite():

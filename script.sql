@@ -254,7 +254,7 @@ join equipe eq on eq.idequipe = c.idequipe
 );
 
 
-create view resultat as (
+create or replace view resultat as (
 select
     e.idetape_coureur,
     e.idetape,
@@ -263,28 +263,30 @@ select
     c.nom,
     c.numero,
     (p.arrive-et.debut) as duree_formatted,
-    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde
+    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde,
+    case when vp.penalite is null then 0 else vp.penalite end
 from v_etape_coureur e
 left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
 join etape et on et.idetape = e.idetape
 join coureur c on c.idcoureur = e.idcoureur
+left join v_pen_coureur vp on vp.idetape = e.idetape and vp.idcoureur = e.idcoureur
 );
 
-select TO_CHAR((interval '1 second' * duree_seconde), 'HH24:MI:SS') AS formatted_time from resultat;
-select EXTRACT(EPOCH FROM duree_formatted) AS total_seconds from resultat;
+-- select TO_CHAR((interval '1 second' * duree_seconde), 'HH24:MI:SS') AS formatted_time from resultat;
+-- select EXTRACT(EPOCH FROM duree_formatted) AS total_seconds from resultat;
 
 create or replace view result_fin as (
 select  * from (
 select
-DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY r.duree_seconde) AS rang,
-r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted from resultat r
+DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY (r.duree_seconde+r.penalite)) AS rang,
+r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted, r.penalite from resultat r
 join categorie_coureur c on r.idcoureur = c.idcoureur
 join coureur co on co.idcoureur = r.idcoureur
 ) vu
 union select * from (
 select
-DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY r.duree_seconde) AS rang,
-r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted from resultat r
+DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY (r.duree_seconde+r.penalite)) AS rang,
+r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted,r.penalite from resultat r
 join coureur co on co.idcoureur = r.idcoureur
 ) as vu1
 );
@@ -293,7 +295,7 @@ join coureur co on co.idcoureur = r.idcoureur
 
 create or replace view result_final_point_last aS (
     select r.*,case when p.classement is null then 0 else p.valeur end as point from result_fin r
-    left join point p on p.classement = r.rang
+    left join point p on p.classement = r.rang3
 );
 
 
@@ -393,6 +395,8 @@ where c.idetape = 0 and c.laharana = 1
 );
 
 -- Eto ndrai zalah amzay mety le penalite ee
+drop table penalite;
+
 create table penalite(
     idpenalite serial primary key,
     idequipe int,
@@ -409,4 +413,43 @@ create or replace view v_penalite as (
     from penalite p
     join equipe e on e.idequipe = p.idequipe
     join etape et on et.idetape = p.idetape
+);
+
+create view v_pen_coureur as (
+select p.idetape,c.idcoureur,p.penalite from coureur c 
+join penalite p on c.idequipe = p.idequipe 
+);
+
+create or replace view resultat as (
+select
+    e.idetape_coureur,
+    e.idetape,
+    e.idequipe,
+    e.idcoureur,
+    c.nom,
+    c.numero,
+    (p.arrive-et.debut) as duree_formatted,
+    EXTRACT(EPOCH FROM p.arrive - et.debut) AS duree_seconde,
+    case when vp.penalite is null then 0 else vp.penalite end
+from v_etape_coureur e
+left join participation p on p.idetape = e.idetape and p.idcoureur = e.idcoureur
+join etape et on et.idetape = e.idetape
+join coureur c on c.idcoureur = e.idcoureur
+left join v_pen_coureur vp on vp.idetape = e.idetape and vp.idcoureur = e.idcoureur
+);
+
+create or replace view result_fin as (
+select  * from (
+select
+DENSE_RANK() OVER (PARTITION BY r.idetape, c.idcategorie ORDER BY (r.duree_seconde+r.penalite)) AS rang,
+r.idetape,c.idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted, r.penalite from resultat r
+join categorie_coureur c on r.idcoureur = c.idcoureur
+join coureur co on co.idcoureur = r.idcoureur
+) vu
+union select * from (
+select
+DENSE_RANK() OVER (PARTITION BY r.idetape ORDER BY (r.duree_seconde+r.penalite)) AS rang,
+r.idetape,0 as idcategorie,r.idcoureur,co.idequipe, r.duree_seconde,r.duree_formatted,r.penalite from resultat r
+join coureur co on co.idcoureur = r.idcoureur
+) as vu1
 );

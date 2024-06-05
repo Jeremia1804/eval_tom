@@ -34,30 +34,16 @@
                                     </tr>
                                 </thead>
                                 <tbody id="penaltyTableBody">
-                                    <tr id="row1">
-                                      <td>j</td>
-                                      <td>r</td>
-                                      <td>a</td>
+                                  {% for p in penalites : %}
+                                    <tr id="row{{ p.idpenalite }}">
+                                      <td>{{p.nometape}}</td>
+                                      <td>{{p.nomequipe}}</td>
+                                      <td>{{p.chrono}}</td>
                                       <td>
-                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-row-id="row1">Supprimer</button>
+                                        <button value={{p.idpenalite}} class="btn btn-danger delete-btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-row-id="row1">Supprimer</button>
                                       </td>
                                     </tr>
-                                    <tr id="row2">
-                                      <td>l</td>
-                                      <td>r</td>
-                                      <td>a</td>
-                                      <td>
-                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-row-id="row2">Supprimer</button>
-                                      </td>
-                                  </tr>
-                                  <tr id="row3">
-                                    <td>k</td>
-                                    <td>r</td>
-                                    <td>a</td>
-                                    <td>
-                                      <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-row-id="row3">Supprimer</button>
-                                    </td>
-                                </tr>
+                                    {% endfor %}
                                     <!-- Ajoute d'autres lignes ici -->
                                 </tbody>
                             </table>
