@@ -68,7 +68,7 @@ def import_second():
 @app.route('/generer-categorie', methods =['GET'])
 def generer_categorie():
     genererCategorie()
-    return redirect(url_for('classment_etape'))
+    return redirect(url_for('classment_eq'))
 
 @app.route('/delete-all', methods =['GET'])
 def delete_all():
