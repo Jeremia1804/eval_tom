@@ -7,7 +7,7 @@ from projet.models.equipe import EquipeModel
 from projet.models.etape import EtapeModel
 from projet.models.etape_coureur import Etape_coureurModel
 from projet.models.participation import ParticipationModel
-from projet.models.penalite import V_penalite
+from projet.models.penalite import PenaliteModel, V_penalite
 from projet.models.point import PointModel
 from projet.services.export import get_pdf
 from projet.services.init_data import delete_all_data
@@ -70,7 +70,7 @@ def generer_categorie():
 
 @app.route('/delete-all', methods =['GET'])
 def delete_all():
-    delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,Categorie_coureurModel,EtapeModel,CoureurModel,EquipeModel)
+    delete_all_data(ParticipationModel,PointModel,Etape_coureurModel,Categorie_coureurModel,PenaliteModel,EtapeModel,CoureurModel,EquipeModel)
     return redirect(url_for('liste_etape2'))
 
 
@@ -79,7 +79,7 @@ def export_pdf(id):
     resp = get_pdf(id)
     headers = {
         'content-type': 'application.pdf',
-        'content-disposition': 'inline  ; filename=certificat.pdf'}
+        'content-disposition': 'attachment  ; filename=certificat.pdf'}
     return resp, 200, headers
 
 
